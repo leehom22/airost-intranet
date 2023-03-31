@@ -1,19 +1,19 @@
 .sidebar {
     background-color: #060b26;
-    height: 80px;
+    height: 50px;
     display: flex;
     justify-content: start;
     align-items: center;
   }
   
   .menu-bars {
-    margin-left: 2rem;
-    font-size: 2rem;
+    margin-left: 1.5rem;
+    font-size: 1rem;
     background: none;
   }
   
   .side-menu {
-    background-color: #060b26;
+    background-color: #000000;
     width: 250px;
     height: 100vh;
     display: flex;
@@ -33,25 +33,25 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 0px 0px 0px 10px;
     list-style: none;
-    height: 60px;
+    height: 50px;
   }
   
   .side-text a {
     text-decoration: none;
     color: #f5f5f5;
-    font-size: 18px;
+    font-size: 15px;
     width: 95%;
     height: 100%;
     display: flex;
     align-items: center;
     padding: 0 16px;
-    border-radius: 4px;
+    border-radius: 5px;
   }
   
   .side-text a:hover {
-    background-color: #1a83ff;
+    background-color: #a3a3a3;
   }
   
   .side-menu-items {
@@ -61,7 +61,7 @@
   .side-menu-items img{
     display: block;
     margin: auto;
-  
+    width: 150px;
   }
   
   .sidebar-toggle {

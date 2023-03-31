@@ -29,7 +29,7 @@ function Sidepanel(){
                 <aiicon.AiOutlineClose />
               </Link>
             </li>
-            <img src="icon.jpg" width="100px"/>
+            <img src="icon.jpg" />
             {Sidebar.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
