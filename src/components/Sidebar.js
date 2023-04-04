@@ -11,15 +11,15 @@ export const Sidebar = [
     cName: 'side-text'
   },
   {
-    title: 'Events',
-    path: '/events',
-    icon: <aiicon.AiFillCalendar />,
-    cName: 'side-text'
-  },
-  {
     title: 'Projects',
     path: '/projects',
     icon: <aiicon.AiFillProject />,
+    cName: 'side-text'
+  },
+  {
+    title: 'Events',
+    path: '/events',
+    icon: <aiicon.AiFillCalendar />,
     cName: 'side-text'
   },
   {
