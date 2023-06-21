@@ -1,4 +1,5 @@
 .sidebar {
+    position: relative;
     background-color: #000000;
     height: 50px;
     display: flex;
