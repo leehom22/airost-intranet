@@ -3,7 +3,7 @@ import React from 'react';
 function Dashboard() {
   return (
     <div className='Dashboard'>
-      <h1>Dashboard hi</h1>
+      <h1>Zemin Dashboard</h1>
     </div>
   );
 }
