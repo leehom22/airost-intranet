@@ -7,7 +7,7 @@ import './Sidepanel.css';
 import { Sidebar } from './Sidebar';
 
 function Sidepanel(){
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
     return (

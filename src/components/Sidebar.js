@@ -14,5 +14,11 @@ export const Sidebar = [
     path: '/projects',
     icon: <faicon.FaCartPlus />,
     cName: 'side-text'
+  },
+  {
+    title: 'Documentation',
+    path: '/doc',
+    icon: <faicon.FaFilePdf />,
+    cName: 'side-text'
   }
 ];
