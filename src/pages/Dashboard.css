@@ -1,0 +1,36 @@
+
+.dashboard {
+    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 100vh;
+  border: 3px solid green;
+}
+
+.container{
+    background-color: blue;
+    width: 85vw;
+    height: 90vh;
+   position: relative;
+}
+
+.background img{
+    width: 83vw;
+    position: absolute;
+    top: 0;
+    left : 0;
+    z-index: 1;
+  }
+
+.profile-pic{
+    position: absolute;
+    width: 10vw;
+    z-index: -1;
+}
+
+.aboutSection {
+    background-color: white;
+    width: 80vw;
+    height: 20vh;
+}
