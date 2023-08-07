@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import DocCard from './component/Doc-card';
 import TopBar from './component/TopBar';
 import { useState } from 'react';
-import './Doc.css';
+import './style/global.css';
 
 const Doc = () => {
   const [articleType, setArticleType] = useState('All');
