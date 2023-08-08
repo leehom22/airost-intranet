@@ -10,6 +10,9 @@ function Sidepanel(){
     const [sidebar, setSidebar] = useState(true);
     const showSidebar = () => setSidebar(!sidebar);
 
+    const logout = () =>{
+      window.open("http://localhost:5000/auth/logout","_self")
+    }
     return (
         <>
 
@@ -37,9 +40,11 @@ function Sidepanel(){
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
+                
                 </li>
               );
             })}
+            <li className="side-text" onClick={logout}><Link><aiicon.AiOutlineLogout /><span>Log Out</span></Link></li>
           </ul>
         </sidebar>
       </IconContext.Provider>

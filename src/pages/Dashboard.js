@@ -1,7 +1,8 @@
 import React from 'react';
 import './Dashboard.css';
 
-function Dashboard() {
+function Dashboard({user}) {
+  console.log(user)
   return (
     <div className='dashboard'>
       <div className="header-container">
@@ -10,7 +11,7 @@ function Dashboard() {
         <div className="profile-section">
           <img src="profile_pic.jpeg" alt="Profile" className='profile-pic'/>
           <div className="about-section">
-            <div className="about-header">About
+            <div className="about-header">
               <div className="profile-description">Passionate about Machine Learning and Data Science! 3rd year Software Engineering student</div>
             </div>
           </div>
