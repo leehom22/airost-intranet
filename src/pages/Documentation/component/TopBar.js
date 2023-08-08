@@ -15,6 +15,7 @@ const TopBar = (props)=>{
       <h2 onClick={() =>changeType("Web & Apps")}>Web & App Resources</h2>
       <div className="faiconfilter"><faicon.FaFilter/></div>
     </header>
+    <div className="animation"></div>
   </div>
   )
 }
