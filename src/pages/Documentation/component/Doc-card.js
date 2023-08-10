@@ -13,12 +13,13 @@ const DocCard = (prop) => {
     return textLength;
   };
 
-
   return ( 
     <div className="articleContainer">  
     {docCard.map((doc) => {
-      return (<div className='articleList'>
+      return (
+      <div className='articleList'>
       <div key={doc.id} className='articleCard'>
+      <Link to={`/doc/${doc.id}`} className='articleLink'>
         <img src={doc.image} alt='article-img' className='articleImage'></img>
         <div className="article">
         <div className='articleDetail'>
@@ -29,11 +30,14 @@ const DocCard = (prop) => {
           <div className='articleTitle' style={{fontSize:`${getFontSize(doc.title.length)}px`}}><h2> {doc.title}</h2></div>
           <div className='articleDescription'><p>{doc.description} </p></div>
         </div>
+        </Link>
       </div>
     </div>
-    )})}
+    )
+    })}
     </div>
    );
 }
  
 export default DocCard;
+

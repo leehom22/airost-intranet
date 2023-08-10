@@ -6,6 +6,7 @@ import * as aiicon from 'react-icons/ai';
 
 const TopBar = (props)=>{
   const changeType=props.changeType;
+  
   return(
     <div className="topbar">
     <header>
