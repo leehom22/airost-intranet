@@ -7,7 +7,7 @@ const DocCard = (prop) => {
   const type = prop.articleType;
   const docCard= (type==='All') ? documentationData : documentationData.filter((doc)=>doc.type===type) ;
   const getFontSize = (textLength) => {
-    var textLength =  (textLength > 50) ? textLength*0.18 :
+    var textLength =  (textLength > 50) ? textLength*0.17 :
                       (textLength > 40) ? textLength*0.32 :
                       textLength=15;
     return textLength;

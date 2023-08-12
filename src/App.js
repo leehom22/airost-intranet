@@ -14,8 +14,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Dashboard/>} />
             <Route path='/projects' element={<Projects/>} />
-              <Route path='/doc' element={<Doc/>}/>
-              <Route path='/doc/:id' element={<DocBlog/>}/>
+            <Route path='/doc' element={<Doc/>}/>
+            <Route path='/doc/:id' element={<DocBlog/>}/>
           </Routes>
       </Router>
       </>
