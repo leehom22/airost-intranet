@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
 import ProjectDetails from './pages/ProjectDetails';
 import Login from './pages/Login';
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect,useState } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,8 +20,9 @@ function App() {
           "Content-Type" : "application/json",
           "Access-Control-Allow-Credentials": true,
         }
-      }).then(response => {
-        if(response.status == 200){
+      }
+      ).then(response => {
+        if(response.status === 200){
           return response.json();
         }
         throw new Error("authentication failed")

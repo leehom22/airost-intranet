@@ -2,17 +2,17 @@ import React from 'react';
 import './Dashboard.css';
 
 function Dashboard({user}) {
-  console.log(user)
   return (
     <div className='dashboard'>
       <div className="header-container">
         <div className="background"><img src="profile_bg.png" alt="Profile background" /></div>
   
         <div className="profile-section">
-          <img src="profile_pic.jpeg" alt="Profile" className='profile-pic'/>
+          <img src={user.photo} alt="Profile" className='profile-pic' referrerpolicy="no-referrer"/>
           <div className="about-section">
             <div className="about-header">
-              <div className="profile-description">Passionate about Machine Learning and Data Science! 3rd year Software Engineering student</div>
+              {user.name}
+              <div className="profile-description">{user.description}</div>
             </div>
           </div>
         </div>
