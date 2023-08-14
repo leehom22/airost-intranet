@@ -9,6 +9,7 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
+// Connect to db
 const connectDatabase = async () => {
     try {
       
