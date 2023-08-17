@@ -22,7 +22,7 @@ passport.use(new GoogleStrategy({
           name : profile.displayName,
           email: profile.emails[0].value,
           photo : profile.photos[0].value,
-          position : "not set",
+          position : "member",
           description : "no description added yet...",
         })
         user = await User.create(newUser)

@@ -9,9 +9,17 @@ import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { useEffect,useState } from 'react';
 import { AuthContext } from './context/authContext';
+import Admin from './pages/Admin';
+import Unauthorized from './pages/Unauthorized';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [path, setPath] = useState("/");
+
+  // Pass the path string from Login component
+  const getPath = (p) => {
+    setPath(p)
+  }
 
   useEffect(()=>{
     const getUser = async()=>{
@@ -38,6 +46,7 @@ function App() {
 
   
   console.log(user)
+
     return (
     <>
     <AuthContext.Provider value={user}>
@@ -46,13 +55,20 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout/>}>
 
-              <Route path='/login' element={user ? <Navigate to="/"/> : <Login/>}></Route>
+              {/* Navigate to the previous intended path(if any) if user logged in */}
+              <Route path='/login' element={user ? <Navigate to={path} replace={true}/> : <Login getPath = {getPath}/>}></Route>
+              <Route path='/unauthorized' element={<Unauthorized/>}/>
 
-              <Route element={<RequireAuth/>}>
+              <Route element={<RequireAuth allowedPosition={["admin"]}/>}>
+                <Route path='/admin' element={<Admin/>}/>
+              </Route>
+
+              <Route element={<RequireAuth allowedPosition={["member","admin"]}/>}>
                 <Route path='/' element={<Dashboard/>}/>
                 <Route path='/projects' element={<Projects/>} />
                 <Route path='/projects/:id' element={<ProjectDetails/>} />
               </Route>
+              
             </Route>
 
             {/* If user no logged in, navigate to /login*/}

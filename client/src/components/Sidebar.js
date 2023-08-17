@@ -28,10 +28,6 @@ export const Sidebar = [
     icon: <cgicon.CgFileDocument />,
     cName: 'side-text'
   },
-  // {
-  //   title: 'Log Out',
-  //   path: '/logout',
-  //   icon: <aiicon.AiOutlineLogout />,
-  //   cName: 'side-text'
-  // }
+
+  
 ];
