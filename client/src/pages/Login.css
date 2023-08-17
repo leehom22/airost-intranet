@@ -7,6 +7,7 @@
 
 .loginBtn.google img{
     width: 3vh;
+    margin-right: 1.5vh;
 }
 
 .loginBtn {
@@ -14,11 +15,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 23vh;
     margin-top: 5vh;
     border: 1px solid lightgrey;
     border-radius: 10px;
     padding: 0.5rem;
     cursor: pointer;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    font-size: 2vh;
 }

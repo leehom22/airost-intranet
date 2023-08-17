@@ -25,9 +25,9 @@ function Sidepanel(){
         </div>
         <sidebar className={sidebar ? 'side-menu active' : 'side-menu'}>
         
-          <ul className='side-menu-items' onClick={showSidebar}>
+          <ul className='side-menu-items'>
           
-            <li className='sidebar-toggle'>
+            <li className='sidebar-toggle' onClick={showSidebar}>
               <Link to='#' className='menu-bars'>
                 <aiicon.AiOutlineClose />
               </Link>

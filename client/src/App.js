@@ -5,7 +5,10 @@ import Dashboard from './pages/Dashboard';
 import Projects from './pages/Projects';
 import ProjectDetails from './pages/ProjectDetails';
 import Login from './pages/Login';
+import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
 import { useEffect,useState } from 'react';
+import { AuthContext } from './context/authContext';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -37,16 +40,24 @@ function App() {
   console.log(user)
     return (
     <>
-      <Router >
-        <Sidepanel />
-        <Routes>
-          
-          <Route path='/' element={user ? <Dashboard user={user}/> : <Navigate to="/login"/> }/>
-          <Route path='/login' element={user ? <Navigate to="/"/> : <Login/>}></Route>
-          <Route path='/projects' element={<Projects/>} />
-          <Route path='/projects/:id' element={<ProjectDetails/>} />
-        </Routes>
-    </Router>
+    <AuthContext.Provider value={user}>
+          {/* Show Sidepanel if user logged in */}
+          {user ?<Sidepanel /> :null}
+          <Routes>
+            <Route path="/" element={<Layout/>}>
+
+              <Route path='/login' element={user ? <Navigate to="/"/> : <Login/>}></Route>
+
+              <Route element={<RequireAuth/>}>
+                <Route path='/' element={<Dashboard/>}/>
+                <Route path='/projects' element={<Projects/>} />
+                <Route path='/projects/:id' element={<ProjectDetails/>} />
+              </Route>
+            </Route>
+
+            {/* If user no logged in, navigate to /login*/}
+          </Routes>
+    </AuthContext.Provider>
     </>
       
   
