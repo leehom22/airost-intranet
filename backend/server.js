@@ -7,6 +7,7 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const session = require('express-session')
 const mongoose = require('mongoose')
+const DocRoutes =require('./routes/docRoutes')
 require('dotenv').config()
 
 // Connect to db
@@ -47,6 +48,14 @@ app.use(cors({
 
 app.use("/auth", authRoutes)
 
-app.listen("5000",()=>{
+app.use(express.json())
+app.use((req,res,next)=>{
+    console.log(req.path,req.method)
+    next()
+})
+
+app.use('/airost/doc',DocRoutes)
+
+app.listen("4000",()=>{
     console.log("connected to server")
 })

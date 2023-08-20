@@ -24,8 +24,8 @@ export const Sidebar = [
   },
   {
     title: 'Documentation',
-    path: '/documentation',
-    icon: <cgicon.CgFileDocument />,
+    path: '/doc',
+    icon: <faicon.FaFilePdf />,
     cName: 'side-text'
   },
 

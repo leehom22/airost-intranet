@@ -7,11 +7,11 @@ import './Sidepanel.css';
 import { Sidebar } from './Sidebar';
 
 function Sidepanel(){
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
     const logout = () =>{
-      window.open("http://localhost:5000/auth/logout","_self")
+      window.open("http://localhost:4000/auth/logout","_self")
     }
     return (
         <>

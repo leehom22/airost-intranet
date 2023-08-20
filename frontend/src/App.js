@@ -11,6 +11,8 @@ import { useEffect,useState } from 'react';
 import { AuthContext } from './context/authContext';
 import Admin from './pages/Admin';
 import Unauthorized from './pages/Unauthorized';
+import Doc from './pages/Documentation/Doc';
+import DocBlog from './pages/Documentation/component/Doc-blog';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,7 +25,7 @@ function App() {
 
   useEffect(()=>{
     const getUser = async()=>{
-      fetch("http://localhost:5000/auth/login/success",{
+      fetch("http://localhost:4000/auth/login/success",{
         method: "GET",
         credentials: "include",
         headers: {
@@ -67,6 +69,8 @@ function App() {
                 <Route path='/' element={<Dashboard/>}/>
                 <Route path='/projects' element={<Projects/>} />
                 <Route path='/projects/:id' element={<ProjectDetails/>} />
+                <Route path='/doc' element={<Doc/>}/>
+                <Route path='/doc/:id' element={<DocBlog/>}/>
               </Route>
               
             </Route>
