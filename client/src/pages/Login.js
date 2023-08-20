@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom"
 
 const Login = ({getPath}) => {
     const google = () =>{
-        window.open("http://localhost:5000/auth/google","_self")
+        window.open("http://localhost:4000/auth/google","_self")
     }
 
     const location = useLocation();

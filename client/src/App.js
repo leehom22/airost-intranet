@@ -23,7 +23,7 @@ function App() {
 
   useEffect(()=>{
     const getUser = async()=>{
-      fetch("http://localhost:5000/auth/login/success",{
+      fetch("http://localhost:4000/auth/login/success",{
         method: "GET",
         credentials: "include",
         headers: {

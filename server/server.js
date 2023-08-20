@@ -47,6 +47,6 @@ app.use(cors({
 
 app.use("/auth", authRoutes)
 
-app.listen("5000",()=>{
+app.listen("4000",()=>{
     console.log("connected to server")
 })
