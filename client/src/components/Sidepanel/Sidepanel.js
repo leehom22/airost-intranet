@@ -1,6 +1,5 @@
-import React , { useState }from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import * as faicon from 'react-icons/fa';
 import * as aiicon from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import './Sidepanel.css';
@@ -48,7 +47,7 @@ function Sidepanel(){
             })}
 
             {/* Show admin menu item if user is admin */}
-            {(user.position[0] == "admin")
+            {(user.position[0] === "admin")
               ? <li className="side-text"><Link to="/admin"><aiicon.AiFillSetting /><span>Admin</span></Link></li>
               : null
             }

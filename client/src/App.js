@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard.js';
 import Projects from './pages/Projects';
 import ProjectDetails from './pages/ProjectDetails';
@@ -22,26 +22,27 @@ function App() {
     setPath(p)
   }
 
-  useEffect(()=>{
-    const getUser = async()=>{
-      fetch("http://localhost:4000/auth/login/success",{
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type" : "application/json",
-          "Access-Control-Allow-Credentials": true,
-        }
+  const getUser = async()=>{
+    fetch("http://localhost:4000/auth/login/success",{
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type" : "application/json",
+        "Access-Control-Allow-Credentials": true,
       }
-      ).then(response => {
-        if(response.status === 200){
-          return response.json();
-        }
-        throw new Error("authentication failed")
-      }).then(resObject => {
-        setUser(resObject.user)
-      }).catch(e => console.log(e))
     }
+    ).then(response => {
+      if(response.status === 200){
+        return response.json();
+      }
+      throw new Error("authentication failed")
+    }).then(resObject => {
+      setUser(resObject.user)
+    }).catch(e => console.log(e))
+  }
+
+  useEffect(()=>{
     getUser();
   }, [])
 
