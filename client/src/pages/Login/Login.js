@@ -1,4 +1,4 @@
-import Google from "../img/google-icon.png"
+import Google from "../../assets/google-icon.png"
 import "./Login.css"
 import { useLocation } from "react-router-dom"
 

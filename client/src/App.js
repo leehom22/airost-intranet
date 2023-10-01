@@ -1,16 +1,15 @@
 import './App.css';
-import Sidepanel from './components/Sidepanel';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard.js';
 import Projects from './pages/Projects';
 import ProjectDetails from './pages/ProjectDetails';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth';
 import { useEffect,useState } from 'react';
 import { AuthContext } from './context/authContext';
-import Admin from './pages/Admin';
-import Unauthorized from './pages/Unauthorized';
+import Admin from './pages/Admin/Admin.js';
+import Unauthorized from './pages/Unauthorized/Unauthorized';
 import Doc from './pages/Documentation/Doc';
 import DocBlog from './pages/Documentation/component/Doc-blog';
 import Events from './pages/Events/Events';
@@ -50,10 +49,8 @@ function App() {
   console.log(user)
 
     return (
-    <div className='app'>
+    <div>
     <AuthContext.Provider value={user}>
-          {/* Show Sidepanel if user logged in */}
-              {/* {user ?<NewSidepanel /> :null} */}
           <Routes>
             <Route path="/" element={<Layout/>}>
 

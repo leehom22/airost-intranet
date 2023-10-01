@@ -17,13 +17,14 @@
   .side-menu {
     background-color: #000000;
     width: 15vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     /* position: fixed;
     top: 0;
     left: -100%; */
     transition: 850ms;
+    position: sticky;
   }
   
   .side-menu.active {

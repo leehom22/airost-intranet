@@ -5,10 +5,12 @@ import * as aiicon from 'react-icons/ai';
 import { IconContext } from 'react-icons';
 import './Sidepanel.css';
 import { Sidebar } from './Sidebar';
+import useAuth from '../../hooks/useAuth';
 
 function Sidepanel(){
-    const [sidebar, setSidebar] = useState(false);
-    const showSidebar = () => setSidebar(!sidebar);
+    const user = useAuth();    
+    // const [sidebar, setSidebar] = useState(false);
+    // const showSidebar = () => setSidebar(!sidebar);
 
     const logout = () =>{
       window.open("http://localhost:4000/auth/logout","_self")
@@ -44,6 +46,12 @@ function Sidepanel(){
                 </li>
               );
             })}
+
+            {/* Show admin menu item if user is admin */}
+            {(user.position[0] == "admin")
+              ? <li className="side-text"><Link to="/admin"><aiicon.AiFillSetting /><span>Admin</span></Link></li>
+              : null
+            }
             <li className="side-text" onClick={logout}><Link><aiicon.AiOutlineLogout /><span>Log Out</span></Link></li>
           </ul>
         </sidebar>
