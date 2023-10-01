@@ -13,7 +13,7 @@ function Dashboard() {
           <img src={user.photo} alt="Profile" className='profile-pic' referrerPolicy="no-referrer"/>
           <div className="about-section">
             <div className="about-header">
-              {user.name}
+              <div className="name">{user.name}</div>
               <div className="profile-description">{user.description}</div>
             </div>
           </div>

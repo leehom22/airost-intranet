@@ -7,7 +7,7 @@ import './Sidepanel.css';
 import { Sidebar } from './Sidebar';
 
 function Sidepanel(){
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
     const logout = () =>{
@@ -17,21 +17,21 @@ function Sidepanel(){
         <>
 
         <IconContext.Provider value={{ color: '#fff' }}>
-        <div className='sidebar'>
+        {/* <div className='sidebar'>
           
           <Link to='#' className='menu-bars'>
             <faicon.FaBars onClick={showSidebar} />
           </Link>
-        </div>
-        <sidebar className={sidebar ? 'side-menu active' : 'side-menu'}>
-        
+        </div> */}
+        {/* <sidebar className={sidebar ? 'side-menu active' : 'side-menu'}> */}
+        <sidebar className='side-menu active'>
           <ul className='side-menu-items'>
           
-            <li className='sidebar-toggle' onClick={showSidebar}>
+            {/* <li className='sidebar-toggle' onClick={showSidebar}>
               <Link to='#' className='menu-bars'>
                 <aiicon.AiOutlineClose />
               </Link>
-            </li>
+            </li> */}
             <img src="icon.jpg" />
             {Sidebar.map((item, index) => {
               return (
