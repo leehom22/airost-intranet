@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const session = require('express-session')
 const mongoose = require('mongoose')
 const DocRoutes =require('./routes/docRoutes')
+const adminRoutes = require('./routes/adminRoutes');
 require('dotenv').config()
 
 // Connect to db
@@ -56,6 +57,8 @@ app.use((req,res,next)=>{
 })
 
 app.use('/airost/doc',DocRoutes)
+
+app.use('/admin', adminRoutes)
 
 app.listen("4000",()=>{
     console.log("connected to server")
