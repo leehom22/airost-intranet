@@ -3,17 +3,15 @@ const User = require('../models/User');
 
 const getUsers = async (req, res) => {
     var verifiedUsers = await VerifiedUser.find();
-    console.log(verifiedUsers)
 
     var users = await User.find();
-    console.log(users)
 }
 
 const createVerifiedUser = async (req, res) => {
     const newVerifiedUser = new VerifiedUser({
         name : req.body.name,
         email : req.body.email,
-        position : req.body.position,
+        position : [req.body.position],
     })
 
     try {

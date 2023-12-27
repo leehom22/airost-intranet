@@ -29,8 +29,6 @@ const Admin = () => {
             email : email,
             position : position,
         })
-        console.log(response);
-        console.log(response.data.createStatus);
         
         if (response.data.createStatus == "success"){
             setCreateSuccess(true);
@@ -76,7 +74,7 @@ const Admin = () => {
                                             onChange={(e) => {setEmail(e.target.value)}}/>
                                     <label htmlFor="email" className='form-label'>Email</label>
                                 </div>
-                                <select className='form-select mb-3'onChange={(e) => {setPosition(e.value)}}>
+                                <select className='form-select mb-3'onChange={(e) => {setPosition(e.target.value)}}>
                                     <option selected>Select position</option>
                                     <option value="member">Member</option>
                                     <option value="admin">Admin</option>
