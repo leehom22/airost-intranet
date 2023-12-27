@@ -1,4 +1,13 @@
-const VerifiedUser = require('../models/VerifiedUser')
+const VerifiedUser = require('../models/VerifiedUser');
+const User = require('../models/User');
+
+const getUsers = async (req, res) => {
+    var verifiedUsers = await VerifiedUser.find();
+    console.log(verifiedUsers)
+
+    var users = await User.find();
+    console.log(users)
+}
 
 const createVerifiedUser = async (req, res) => {
     const newVerifiedUser = new VerifiedUser({
@@ -24,5 +33,7 @@ const createVerifiedUser = async (req, res) => {
 }
 
 module.exports = {
-    createVerifiedUser
+    createVerifiedUser,
+    getUsers
 }
+

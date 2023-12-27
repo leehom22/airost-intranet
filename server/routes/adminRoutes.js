@@ -1,8 +1,11 @@
 const express = require('express');
-const { createVerifiedUser } = require('../controller/adminController');
+const { createVerifiedUser, getUsers } = require('../controller/adminController');
 const router = express.Router();
 
-//POST a new Doc
+// Get all users
+router.get('/users', getUsers);
+
+// Create a new verified user
 router.post('/users/verified', createVerifiedUser);
 
 
