@@ -16,7 +16,7 @@ const getDoc = async (req, res) => {
   if(!mongoose.Types.ObjectId.isValid(id)) 
     return res.status(404).json({error: 'No Doc'})
 
-  const DOC = await Doc.findById(id);
+  const DOC = await Doc.findById(id); 
 
   if(!DOC) {
     return res.status(404).json({error: 'Not found'})

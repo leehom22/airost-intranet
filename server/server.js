@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const session = require('express-session')
 const mongoose = require('mongoose')
 const DocRoutes =require('./routes/docRoutes')
+const eventRoutes = require('./routes/eventRoutes'); 
 const adminRoutes = require('./routes/adminRoutes');
 require('dotenv').config()
 
@@ -48,6 +49,7 @@ app.use(cors({
 }))
 
 app.use("/auth", authRoutes)
+app.use('/event', eventRoutes); 
 
 app.use(express.json())
 
