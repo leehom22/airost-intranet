@@ -23,7 +23,23 @@ const userSchema = new mongoose.Schema({
     },
     description:{
         type:String,
-        required:true,
+        required:false,
+    },
+    year:{
+        type:String,
+        required:false,
+    },
+    course:{
+        type:String,
+        required:false,
+    },
+    phonenum:{
+        type:String,
+        required:false,
+    },
+    instagram:{
+        type:String,
+        required:false,
     }
 });
 
