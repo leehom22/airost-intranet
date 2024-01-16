@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "airost-intranet",
+  "private_key_id": "ea4724db2b237185e9071083eb351f5488aad6b7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDKdHgzZ4FSyZ8J\nEEvPklLDtg+gfKaO8NPzej8akOZy1eI4hTqmZ8OY3UDjdV0NnVYXFjRbUfj+W39J\nCtzQ9Q4tJBk4+JHYqX6oH0mYA0y03QpiIdxv0f/M+U2v6Wby9yApp/53yc0w0Emf\negZl0LE5H3lud1GiIqHvurbr420TsfNR6pS1aqREvJWwu+OOdCnWQz+QyaYLaoFG\n6vlVl5j9HS8tIgmnJTCXiNs/RDwHqod2dCW1WnjlJ3j2ojHk62uUbG5mod6ZhOO6\nW4V0I3jJbrAqOEG2AzL0ChYm0POhevra6MrUHm13ABMws+16AZPCKlXqHGffKXXQ\naMBMqXw9AgMBAAECggEAAax4bFLE74gTlLUAYdhS1aPFE02UgiADKimIXGup2Nv9\nzi8DyIMyscPUGOblr9dTvxMdUbGNMZ6600H2VPmBqX8TGk54kWYtUhR+iXXIuSh1\nDbfVi7Mci0RDj429a4rLE3niqt9A0mnjNSDo7QfBpbg/fiZ/k6vEbPS9NTJth2xW\n09cseFwJSRoN8APduxNpV/lKoEIbvF5L28aeYpMJTKO+Pxx+bpGj8uzmuOD4lnSj\nLKbDRMi7M9GtCxT6Nu1FWfQwTHIo62ggwfDkcDM1Yp7zg/rSVdVR9tUr0zmHqkt0\nIwiDjpqsfaUfOaSxk1Qr6pZidA9fgU8o+izzajHcHQKBgQDnrk0e3pTKbMRlJEFV\nmopHWVT5yxuV9O36GUlPPNW/CoytcKJzjciqVVG+C0N9f7PTv01d/30twaOqAzkD\nFxsJjp/Xn8a7UyG+5+mMj1BeTA90fCNf2jowLNBU2iq6TRPQOYbSgDX7KaE6xwpq\nOULw2ZsMFC+/ZlNuIDwZDni+SwKBgQDftNA/uOxSE6CR2ccf+4A5h3+E08qaxv81\nZtymmn7Q7yRz6eLutdGmBth/TamtspI8CWVgcnxwBGMtL+GHrdUqWb5Lca8d/63Q\nx3Wq40pehARatWNDQwwbXtV2pYAZF/YhO92sxEDyq91AwcY7U/QB5m7bD46NgC0e\nNaRjm1T6lwKBgG0nXORnX9jDSACTBUksp2uYNgX+YH/VRu3nTffMJLR+ZussPw2M\nRneh/QI50lFlgjcIUY4w2ixdqBtoq0q+bxmgncR8XahSMXr9TrbPqsDSuxFZj10Q\ntwuNgZYIt8rQl74p7FBu4X/1DCZiMpD7a4OIMpmNRTW7IyGmhEoV3GNjAoGAQHg0\nd9jMSk8bvEy9xSrO5kV1a4s53WcyD2rIdj8aAw6YO8uQueiuNaHNbMqt9r/6wtCW\nZbg4wnORPWmKHnbrctwQKl/l7shLiFqjP49nVFvJgXa615yP9adb72h8xT6RkTxW\ngz6/1O/QwKPXhCuKq62EDx+pnn/tAMLG0GnokJsCgYByWN4Mj3XReimbCC7WutOb\nnq5x90nSrHarGL1j6bm7nbklo4lic8ACf6kOSg9nDkdoC1+XXCjzbAizC+3BF49M\nvKspWT9jtTEbtf4rr8UeyrB7eFMKlkV0mE0adu3DQpx/O2bV+GjPFmXIpTIaqDhq\n8LzPeO9YZ22Nkyj/Qwaf1w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "airost-intranet@airost-intranet.iam.gserviceaccount.com",
+  "client_id": "103841538417441047723",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/airost-intranet%40airost-intranet.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
