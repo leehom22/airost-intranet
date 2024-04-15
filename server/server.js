@@ -10,6 +10,7 @@ const mongoose = require('mongoose')
 const DocRoutes =require('./routes/docRoutes')
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 require('dotenv').config()
 
 // Connect to db
@@ -62,6 +63,8 @@ app.use('/airost/doc',DocRoutes)
 app.use('/admin', adminRoutes)
 
 app.use('/user', userRoutes)
+
+app.use('/calendar', eventRoutes)
 
 app.listen("4000",()=>{
     console.log("connected to server")

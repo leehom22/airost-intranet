@@ -27,7 +27,6 @@ function Dashboard() {
 
   const handleSubmit = async (e) => {
     
-    
     const response = await axios.patch('/user/' + user._id, {
       description: description,
       year: year,
@@ -79,7 +78,7 @@ function Dashboard() {
                 </Modal.Header>
                     <Modal.Body>
                             <form className="form" id='userForm' onSubmit={handleSubmit}>
-                                <div className="subtitle">Update user info</div>
+                                <div className="subtitle">Profile Info</div>
 
                                 <div className="form-floating mb-3">
                                     <input 
