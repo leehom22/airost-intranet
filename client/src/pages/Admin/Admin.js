@@ -18,7 +18,7 @@ const Admin = () => {
 
     const getUsers = async => {
         axios.get('http://localhost:4000/admin/users')
-        .then(users => console.log(users.data))
+        .then(users => setUsers(users.data))
         .catch(err => console.log(err))
     }
     const handleSubmit = async (e) => {
@@ -29,8 +29,6 @@ const Admin = () => {
             email : email,
             position : position,
         })
-        console.log(response);
-        console.log(response.data.createStatus);
         
         if (response.data.createStatus == "success"){
             setCreateSuccess(true);
@@ -76,7 +74,7 @@ const Admin = () => {
                                             onChange={(e) => {setEmail(e.target.value)}}/>
                                     <label htmlFor="email" className='form-label'>Email</label>
                                 </div>
-                                <select className='form-select mb-3'onChange={(e) => {setPosition(e.value)}}>
+                                <select className='form-select mb-3'onChange={(e) => {setPosition(e.target.value)}}>
                                     <option selected>Select position</option>
                                     <option value="member">Member</option>
                                     <option value="admin">Admin</option>
@@ -89,6 +87,33 @@ const Admin = () => {
                 </Modal>
                 <div className="row">
                         <input id="email" className="form-control" type="text" placeholder="Search for name or email"/>
+                </div>
+                <div>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                users.map(
+                                    user => {
+                                        return <tr>
+                                            <td><img src={user.photo} alt="Profile"/></td>
+                                            <td>{user.email}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.position}</td>
+                                        </tr>
+                                    }
+                                )
+                            }
+                        </tbody>
+                    </table>
                 </div>
         </div>
     </div>

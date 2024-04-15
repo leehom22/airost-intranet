@@ -223,9 +223,7 @@ function Events() {
                 </Modal>
             
         </div>
-
         
     );
 }
-
 export default Events;
