@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'
-import Select from 'react-select';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './Admin.css'
-import Modal from 'react-bootstrap/Modal';
-const Admin = () => {
+import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [position, setPosition] = useState("");
@@ -37,59 +34,47 @@ const Admin = () => {
             setPosition("");
         }
     }
-
     
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
+
     return (
     <div className='admin-page container'>
         <div className="col">
-            <div className="row justify-content-between mt-3">
-                <h1 className="col-2">Users</h1>
-                <div className="col-2 p-0 text-center">
-                    <button className="btn btn-success float-end" type="button" data-toggle="modal" data-target="#exampleModal" onClick={handleShowModal}>
-                        Add new users
-                    </button>
-                </div>
+            <div className="flex flex-row justify-between items-center mt-3 p-5">
+                <h1 className='font-bold text-3xl'>Users</h1>
+                <button className="btn btn-primary" onClick={()=>document.getElementById('add-user-modal').showModal()}>Create verified user</button>
             </div>
-                <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add New Users</Modal.Title>
-                </Modal.Header>
-                    <Modal.Body>
+            <dialog id="add-user-modal" className="modal">
+                <div className='modal-box flex flex-col justify-center items-center'>
+                    <h1>Add New Users</h1>
                             <form className="form" id='userForm' onSubmit={handleSubmit}>
                                 <div className="subtitle">Enter info for verified users</div>
-
-                                <div className="form-floating mb-3">
                                     <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder=""  value={name}
+                                        id="name" className="form-control input input-bordered w-full my-2"
+                                        required type="text" placeholder="Name"  value={name}
                                         onChange={(e) => {setName(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Name</label>
-                                </div>
-                                <div className="form-floating mb-3">
                                     <input 
-                                            id="email" className="form-control" required
-                                            type="text" placeholder="" value={email}
-                                            onChange={(e) => {setEmail(e.target.value)}}/>
-                                    <label htmlFor="email" className='form-label'>Email</label>
-                                </div>
-                                <select className='form-select mb-3'onChange={(e) => {setPosition(e.target.value)}}>
+                                        id="email" className="form-control input input-bordered w-full  my-2" 
+                                        required type="text" placeholder="Email" value={email}
+                                        onChange={(e) => {setEmail(e.target.value)}}/>
+                                <select className="select select-bordered w-full my-2" onChange={(e) => {setPosition(e.target.value)}}>
                                     <option selected>Select position</option>
                                     <option value="member">Member</option>
                                     <option value="admin">Admin</option>
                                 </select>
                             </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button type="submit" form='userForm' className="btn btn-success">Create</button>
-                    </Modal.Footer>
-                </Modal>
-                <div className="row">
-                        <input id="email" className="form-control" type="text" placeholder="Search for name or email"/>
+                        <button type="submit" form='userForm' className="btn btn-success my-2">Create</button>
                 </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+                </dialog>
+                {/* <div className="row">
+                        <input id="email" className="form-control" type="text" placeholder="Search for name or email"/>
+                </div> */}
                 <div>
-                    <table className='table'>
+                    <table className='table table-zebra'>
                         <thead>
                             <tr>
                                 <th></th>
@@ -102,12 +87,16 @@ const Admin = () => {
                         <tbody>
                             {
                                 users.map(
-                                    user => {
-                                        return <tr>
+                                    (user,index) => {
+                                        return <tr key={index}>
                                             <td><img src={user.photo} alt="Profile"/></td>
                                             <td>{user.email}</td>
                                             <td>{user.email}</td>
                                             <td>{user.position}</td>
+                                            <td>{user.verified 
+                                                    ? <FaCheck/>
+                                                    : <FaXmark/>
+                                            }</td>
                                         </tr>
                                     }
                                 )

@@ -13,6 +13,11 @@ import Unauthorized from './pages/Unauthorized/Unauthorized';
 import Doc from './pages/Documentation/Doc';
 import DocBlog from './pages/Documentation/component/Doc-blog';
 import Events from './pages/Events/Events';
+import ProjectTracking from './pages/ProjectTracking/ProjectTracking.js';
+import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 function App() {
   const [user, setUser] = useState(null);
   const [path, setPath] = useState("/");
@@ -46,39 +51,39 @@ function App() {
     getUser();
   }, [])
 
-  
-  console.log(user)
-
     return (
     <div>
-    <AuthContext.Provider value={user}>
-          <Routes>
-            <Route path="/" element={<Layout/>}>
+    <QueryClientProvider client={queryClient}> 
+      <AuthContext.Provider value={user}>
+            <Routes>
+              <Route path="/" element={<Layout/>}>
 
-              {/* Navigate to the previous intended path(if any) if user logged in */}
-              <Route path='/login' element={user ? <Navigate to={path} replace={true}/> : <Login getPath = {getPath}/>}></Route>
-              <Route path='/unauthorized' element={<Unauthorized/>}/>
+                {/* Navigate to the previous intended path(if any) if user logged in */}
+                <Route path='/login' element={user ? <Navigate to={path} replace={true}/> : <Login getPath = {getPath}/>}></Route>
+                <Route path='/unauthorized' element={<Unauthorized/>}/>
 
-              {/* accessible routes by admin */}
-              <Route element={<RequireAuth allowedPosition={["admin"]}/>}>
-                <Route path='/admin' element={<Admin/>}/>
+                {/* accessible routes by admin */}
+                <Route element={<RequireAuth allowedPosition={["admin"]}/>}>
+                  <Route path='/admin' element={<Admin/>}/>
+                </Route>
+                
+                {/* Accessible routes by all members  */}
+                <Route element={<RequireAuth allowedPosition={["member","admin"]}/>}>
+                  <Route path='/' element={<Dashboard/>}/>
+                  <Route path='/projects' element={<Projects/>} />
+                  <Route path='/projects/:id' element={<ProjectDetails/>} />\
+                  <Route path='/events' element={<Events/>}/>
+                  <Route path='/doc' element={<Doc/>}/>
+                  <Route path='/doc/:id' element={<DocBlog/>}/>
+                  <Route path='/projects/tracking' element={<ProjectTracking/>}/>
+                </Route>
+                
               </Route>
-              
-              {/* Accessible routes by all members  */}
-              <Route element={<RequireAuth allowedPosition={["member","admin"]}/>}>
-                <Route path='/' element={<Dashboard/>}/>
-                <Route path='/projects' element={<Projects/>} />
-                <Route path='/projects/:id' element={<ProjectDetails/>} />\
-                <Route path='/events' element={<Events/>}/>
-                <Route path='/doc' element={<Doc/>}/>
-                <Route path='/doc/:id' element={<DocBlog/>}/>
-              </Route>
-              
-            </Route>
 
-            {/* If user no logged in, navigate to /login*/}
-          </Routes>
-    </AuthContext.Provider>
+              {/* If user no logged in, navigate to /login*/}
+            </Routes>
+      </AuthContext.Provider>
+    </QueryClientProvider>
     </div>
       
   
