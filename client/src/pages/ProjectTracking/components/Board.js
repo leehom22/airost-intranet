@@ -2,23 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import Column from "./Column";
 import BurnBarrel from "./BurnBarrel";
-import { useQuery,useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import useFetchUsers from "../../../hooks/useFetchUsers";
-
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Board = () => {
-    const queryClient = useQueryClient()
     const [cards, setCards] = useState([]);
-    const [hasChecked, setHasChecked] = useState(false)
-
+    const {projectId} = useParams()
+    console.log(projectId)
     const getProjectBoard = async () => {
-        return axios.get('http://localhost:4000/projects/tracking', {
-            params: {projectId: 1}
-        })
+        return axios.get(`http://localhost:4000/projects/tracking/${projectId}`)
         .then(res => {
-            let cardData = res.data.tasks;
             setCards(res.data.tasks)
-            setHasChecked(true)
             return res.data
         })
         .catch(err => console.log(err))
@@ -26,42 +21,54 @@ const Board = () => {
     const projectBoard = useQuery({
         queryKey:["projectBoard"],
         queryFn: getProjectBoard,
+        enabled: !isNaN(projectId)
     })
 
     const users = useFetchUsers();
 
     return (
-        <div className="flex h-full w-full gap-3 p-12 overflow-scroll">
-        <Column
-            title="Backlog"
-            column="backlog"
-            headingColor="text-neutral-500"
-            cards={cards}
-            setCards={setCards}
-        />
-        <Column
-            title="TODO"
-            column="todo"
-            headingColor="text-yellow-200"
-            cards={cards}
-            setCards={setCards}
-        />
-        <Column
-            title="In progress"
-            column="doing"
-            headingColor="text-blue-200"
-            cards={cards}
-            setCards={setCards}
-        />
-        <Column
-            title="Done"
-            column="done"
-            headingColor="text-emerald-200"
-            cards={cards}
-            setCards={setCards}
-        />
-        <BurnBarrel setCards={setCards} cards={cards} />
-        </div>
+        <div className="h-screen w-full flex flex-col items-center justify-center">
+            <div className="w-11/12 mb-3">
+                <h1 className="text-4xl font-extrabold">Project</h1>
+            </div>
+            <div className="h-5/6 w-11/12 rounded-lg bg-neutral-900 text-neutral-50">
+                <div className="flex h-full w-full gap-3 p-12 overflow-scroll">
+                <Column
+                    title="Backlog"
+                    column="backlog"
+                    headingColor="text-neutral-500"
+                    cards={cards}
+                    setCards={setCards}
+                    projectId={projectId}
+                />
+                <Column
+                    title="TODO"
+                    column="todo"
+                    headingColor="text-yellow-200"
+                    cards={cards}
+                    setCards={setCards}
+                    projectId={projectId}
+                />
+                <Column
+                    title="In progress"
+                    column="doing"
+                    headingColor="text-blue-200"
+                    cards={cards}
+                    setCards={setCards}
+                    projectId={projectId}
+                />
+                <Column
+                    title="Done"
+                    column="done"
+                    headingColor="text-emerald-200"
+                    cards={cards}
+                    setCards={setCards}
+                    projectId={projectId}
+                />
+                <BurnBarrel setCards={setCards} cards={cards} projectId={projectId}/>
+                </div>
+            </div>
+    </div>
     );
     };
 

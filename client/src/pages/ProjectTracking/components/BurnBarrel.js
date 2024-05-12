@@ -3,9 +3,9 @@ import {FiTrash}  from "react-icons/fi";
 import { FaFire } from "react-icons/fa";
 import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
 
-const BurnBarrel = ({ setCards, cards }) => {
+const BurnBarrel = ({ setCards, cards, projectId }) => {
     const [active, setActive] = useState(false);
-    const projectBoardMutation = useProjectBoardMutation({projectId: 1, cards: cards});
+    const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
 
     const handleDragOver = (e) => {
         e.preventDefault();

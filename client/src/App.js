@@ -14,6 +14,7 @@ import Doc from './pages/Documentation/Doc';
 import DocBlog from './pages/Documentation/component/Doc-blog';
 import Events from './pages/Events/Events';
 import ProjectTracking from './pages/ProjectTracking/ProjectTracking.js';
+import Board from './pages/ProjectTracking/components/Board.js';
 import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
@@ -76,6 +77,7 @@ function App() {
                   <Route path='/doc' element={<Doc/>}/>
                   <Route path='/doc/:id' element={<DocBlog/>}/>
                   <Route path='/projects/tracking' element={<ProjectTracking/>}/>
+                  <Route path='/projects/tracking/:projectId' element={<Board/>}/>
                 </Route>
                 
               </Route>

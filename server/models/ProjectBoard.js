@@ -9,6 +9,10 @@ const projectBoard = new mongoose.Schema({
             new mongoose.Schema({
                 title: String,
                 column: String,
+                assignee: String,
+                description: String,
+                priority: String,
+                dueDate: Date,
             })
         ]
 });

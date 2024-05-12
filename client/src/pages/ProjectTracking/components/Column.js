@@ -3,9 +3,9 @@ import Card from "./Card";
 import DropIndicator from "./DropIndicator";
 import AddCard from "./AddCard";
 import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
-const Column = ({ title, headingColor, cards, column, setCards }) => {
+const Column = ({ title, headingColor, cards, column, setCards, projectId }) => {
     const [active, setActive] = useState(false);
-    const projectBoardMutation = useProjectBoardMutation({projectId: 1, cards: cards});
+    const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
 
     const addNewCard = () => {
         projectBoardMutation.mutate();
@@ -111,28 +111,30 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     const filteredCards = cards.filter((c) => c.column === column); 
     
     return (
-        <div className="w-56 shrink-0">
-        <div className="mb-3 flex items-center justify-between">
-            <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-            <span className="rounded text-sm text-neutral-400">
-            {filteredCards.length}
-            </span>
-        </div>
-        <div
-            onDrop={handleDragEnd}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            className={`h-full w-full transition-colors ${
-            active ? "bg-neutral-800/50" : "bg-neutral-800/0"
-            }`}
-        >
-            {filteredCards.map((c) => {
-            return <Card key={c._id} {...c} handleDragStart={handleDragStart} />;
-            })}
-            <DropIndicator beforeId={null} column={column} />
-            <AddCard column={column} setCards={setCards} addNewCard={addNewCard}/>
-        </div>
-        </div>
+        <>
+            <div className="w-56 shrink-0">
+            <div className="mb-3 flex items-center justify-between">
+                <h3 className={`font-medium ${headingColor}`}>{title}</h3>
+                <span className="rounded text-sm text-neutral-400">
+                {filteredCards.length}
+                </span>
+            </div>
+            <div
+                onDrop={handleDragEnd}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                className={`h-full w-full transition-colors ${
+                active ? "bg-neutral-800/50" : "bg-neutral-800/0"
+                }`}
+            >
+                {filteredCards.map((c) => {
+                return <Card key={c._id} card={c} handleDragStart={handleDragStart}/>;
+                })}
+                <DropIndicator beforeId={null} column={column} />
+                <AddCard column={column} setCards={setCards} addNewCard={addNewCard}/>
+            </div>
+            </div>
+        </>
     );
     };
 
