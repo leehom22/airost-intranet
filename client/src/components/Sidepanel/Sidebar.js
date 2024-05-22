@@ -17,6 +17,12 @@ export const Sidebar = [
     cName: 'side-text'
   },
   {
+    title: 'Project Tracking',
+    path: '/projects/tracking',
+    icon: <faicon.FaChartLine/>,
+    cName: 'side-text'
+  },
+  {
     title: 'Events',
     path: '/events',
     icon: <aiicon.AiFillCalendar />,

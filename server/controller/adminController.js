@@ -46,7 +46,6 @@ const createVerifiedUser = async (req, res) => {
         email : req.body.email,
         position : [req.body.position],
     })
-
     try {
         const existingUser = await VerifiedUser.findOne({email : newVerifiedUser.email});
 
@@ -56,6 +55,11 @@ const createVerifiedUser = async (req, res) => {
         else {
             await newVerifiedUser.save();
             res.status(201).json({createStatus : "success"});
+            await User.updateOne({email: req.body.email},{
+                $set:{
+                    position: [req.body.position]
+                }
+            })
         }
     } 
     catch(err){

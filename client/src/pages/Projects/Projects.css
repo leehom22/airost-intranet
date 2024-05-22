@@ -5,12 +5,10 @@
 
 .project-title{
     color: #FF7B7B;
-    margin-top: 20px;
     font-size: 40px;
 }
 
 .project-preview {
-    width: 1100px;
     height: 120px;
     padding: 20px;
     background-color: #ffffff;

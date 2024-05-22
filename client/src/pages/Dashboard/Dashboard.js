@@ -1,7 +1,7 @@
 import "./Dashboard.css"
 import useAuth from '../../hooks/useAuth';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Modal from 'react-bootstrap/Modal';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Modal from 'react-bootstrap/Modal';
 import axios from 'axios'
 import { useState, useEffect } from 'react';
 
@@ -72,7 +72,7 @@ function Dashboard() {
 
         </div>
       </div>
-      <Modal show={showModal} onHide={handleCloseModal}>
+      {/* <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Profile</Modal.Title>
                 </Modal.Header>
@@ -124,7 +124,7 @@ function Dashboard() {
                     <Modal.Footer>
                         <button type="submit" form='userForm' className="btn btn-success">Update</button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
       
       
     </div>

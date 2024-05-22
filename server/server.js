@@ -11,6 +11,8 @@ const DocRoutes =require('./routes/docRoutes')
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const projectRoutes = require('./routes/projectsRoutes');
+
 require('dotenv').config()
 
 // Connect to db
@@ -61,11 +63,9 @@ app.use((req,res,next)=>{
 app.use('/airost/doc',DocRoutes)
 
 app.use('/admin', adminRoutes)
-
 app.use('/user', userRoutes)
-
+app.use('/projects',projectRoutes)
 app.use('/calendar', eventRoutes)
-
 app.listen("4000",()=>{
     console.log("connected to server")
 })

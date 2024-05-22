@@ -33,7 +33,7 @@ function Sidepanel(){
                 <aiicon.AiOutlineClose />
               </Link>
             </li> */}
-            <img src="icon.jpg" />
+            <img src="airost-icon.jpg" />
             {Sidebar.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>

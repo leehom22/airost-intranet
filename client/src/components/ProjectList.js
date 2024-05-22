@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ProjectList = ({ projects }) => {
     return ( 
-        <div className="project-list">
+        <div className="project-list w-10/12">
         {projects.map((project) => (
           <div className="project-preview" key={project.id}>
             <Link style={{textDecoration: 'none'}} to={`/projects/${project.id}` }>

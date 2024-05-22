@@ -1,7 +1,7 @@
 import './Events.css'
 import { useState, useEffect } from 'react'
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
+// import Modal from 'react-bootstrap/Modal';
+// import Spinner from 'react-bootstrap/Spinner';
 const { format, parseISO } = require('date-fns');
 
 // Get date-time string for calender
@@ -131,22 +131,18 @@ function Events() {
                 <div className="calendar">
                     {loading && (
                     <div className="spinner-overlay">
-                        <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                        </Spinner>
+                        <span className="loading loading-spinner loading-lg"></span>
                     </div>
                     )}
-                    {!loading && <iframe title="airost-events-calendar" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKuala_Lumpur&src=cHpoaXlpbmcwMzA2QGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4ubWFsYXlzaWEjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%237986CB&color=%2333B679&color=%230B8043" style={{border: 'none'}}></iframe>}
+                    {!loading && <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=UTC&bgcolor=%23616161&mode=MONTH&src=bHplbWluOEBnbWFpbC5jb20&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679" style={{border:"solid 1px #777",width:"800",height:"600",frameborder:"0",scrolling:"no"}}></iframe>}
                 </div>
                 <div className="interactions">
-                    <button className="add-events" onClick={handleShowModal}>Add Events</button>
+                    <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_2').showModal()}>Add Events</button>
                 </div>
                 <h4>Upcoming Events</h4>
                 {loading && (
                 <div className="spinner-overlay">
-                    <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                    <span className="loading loading-spinner loading-lg"></span>
                 </div>
                 )}
                 {!loading && <div className="upcoming-events">
@@ -176,7 +172,7 @@ function Events() {
                 </div>}
             </div>
 
-            <Modal show={showModal} onHide={handleCloseModal}>
+            {/* <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add Event</Modal.Title>
                 </Modal.Header>
@@ -220,7 +216,51 @@ function Events() {
                     <Modal.Footer>
                         <button type="submit" form='userForm' className="btn btn-success">Add</button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
+                <dialog id="my_modal_2" className="modal">
+          <div className="modal-box">
+            <form className="form grid grid-cols-1 gap-2" id='userForm' onSubmit={handleSubmit}>
+            <h3 className="font-bold text-lg">Add Event</h3>
+                                <label class="input input-bordered flex items-center gap-2">
+                                    Date
+                                    <input 
+                                        id="name" className="grow" required
+                                        type="date" value={date}
+                                        onChange={(e) => {setDate(e.target.value)}}/>
+                                </label>
+
+                                <label class="input input-bordered flex items-center gap-2">
+                                    Time
+                                    <input 
+                                        id="name" className="grow" required
+                                        type="time" value={time}
+                                        onChange={(e) => {setTime(e.target.value)}}/>
+                                </label>
+                                
+                                <label class="input input-bordered flex items-center gap-2">
+                                    Event Name
+                                    <input 
+                                        id="name" className="grow" required
+                                        type="text" value={eventName}
+                                        placeholder='Fun workshop'
+                                        onChange={(e) => {setEventName(e.target.value)}}/>
+                                </label>
+                
+                                <label class="input input-bordered flex items-center gap-2">
+                                    Venue
+                                    <input 
+                                        id="name" className="grow" required
+                                        type="text"value={venue}
+                                        placeholder='Cairo Lab'
+                                        onChange={(e) => {setVenue(e.target.value)}}/>
+                                </label>
+                                <button type="submit" form='userForm' className="btn btn-neutral w-full">Add</button>
+                            </form>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+      </dialog>
             
         </div>
         
