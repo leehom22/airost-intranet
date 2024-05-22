@@ -4,31 +4,40 @@ import { motion } from "framer-motion";
 import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
 import useFetchUsers from "../../../hooks/useFetchUsers";
 import Datepicker from "react-tailwindcss-datepicker"; 
+import { useForm } from "react-hook-form";
 
 const AddCard = ({ column, setCards, addNewCard }) => {
-    const [title, setTitle] = useState('');
-    const [assignee, setAssignee] = useState('no_assignee')
-    const [description, setDescription] = useState('')
-    const [priority, setPriority] = useState('')
     const [adding, setAdding] = useState(false);
     const [dueDate, setDueDate] = useState({
         startDate: null,
         endDate: null,
     });
     const users = useFetchUsers();
-    console.log(users.data)
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        if (!title.trim().length) return;
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+      } = useForm({
+        defaultValues:{
+            title: '',
+            description: "",
+            assignee: "no_assignee",
+            priority: "low",
+        }
+      })
+
+    const onSubmit = (data) => {
+        if (!data.title.trim().length) return;
     
         const newCard = {
             column,
-            title: title.trim(),
-            assignee: assignee,
-            description: description,
-            priority: priority,
-            dueDate: dueDate.startDate,
+            title: data.title.trim(),
+            assignee: data.assignee,
+            description: data.description,
+            priority: data.priority,
+            dueDate: dueDate.startDate ?? new Date(),
         };
         
         setCards((pv) => [...pv, newCard]);
@@ -38,24 +47,25 @@ const AddCard = ({ column, setCards, addNewCard }) => {
             endDate: null,
         })
         setAdding(false);
-    };
+        reset();
+      }
     
     return (
         <>
         {adding ? (
-            <motion.form layout onSubmit={handleSubmit}>
+            <motion.form layout onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 
                     text-sm text-neutral-50 placeholder-violet-300 focus:outline-0
                     grid grid-cols-3 gap-3">
                 <input type="text"
-                    onChange={(e) => setTitle(e.target.value)}
+                    {...register("title",{required: true})}
                     autoFocus
                     placeholder="Add new task..."
                     className="input input-bordered w-full max-w-xs input-xs bg-neutral-800 col-span-3"
                 />
                 <textarea 
+                    {...register("description")}
                     className="textarea textarea-bordered textarea-xs col-span-3 bg-neutral-800" 
-                    onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description">
                 </textarea>
                 <div className="h-min col-span-3">    
@@ -70,14 +80,16 @@ const AddCard = ({ column, setCards, addNewCard }) => {
                         /> 
                     </div>
                     <select
-                        onChange={(e)=> setPriority(e.target.value)} 
-                        className="select select-bordered select-xs w-full max-w-xs bg-neutral-800 col-span-3">
+                        {...register("priority")}
+                        className="select select-bordered select-xs w-full max-w-xs bg-neutral-800 col-span-3"
+                        placeholder="Priority">
+                        <option value="low" disabled selected hidden>Task Priority</option>
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
-                <select
-                        onChange={(e)=> setAssignee(e.target.value)} 
+                    <select
+                        {...register("assignee")}
                         className="select select-bordered select-xs w-full max-w-xs bg-neutral-800 col-span-3">
                             <option value="no_assignee">No assignee</option>
                             {users.data.map(user => {

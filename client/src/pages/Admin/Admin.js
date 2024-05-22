@@ -46,8 +46,8 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
                 <button className="btn btn-primary" onClick={()=>document.getElementById('add-user-modal').showModal()}>Create verified user</button>
             </div>
             <dialog id="add-user-modal" className="modal">
-                <div className='modal-box flex flex-col justify-center items-center'>
-                    <h1>Add New Users</h1>
+                <div className='modal-box flex flex-col'>
+                    <h1 className='font-bold'>Add New Users</h1>
                             <form className="form" id='userForm' onSubmit={handleSubmit}>
                                 <div className="subtitle">Enter info for verified users</div>
                                     <input 
@@ -64,7 +64,7 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
                                     <option value="admin">Admin</option>
                                 </select>
                             </form>
-                        <button type="submit" form='userForm' className="btn btn-success my-2">Create</button>
+                        <button type="submit" form='userForm' className="btn btn-neutral my-2">Create</button>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

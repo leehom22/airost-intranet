@@ -1,8 +1,8 @@
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard.js';
-import Projects from './pages/Projects';
-import ProjectDetails from './pages/ProjectDetails';
+import Projects from './pages/Projects/Projects';
+import ProjectDetails from './pages/Projects/ProjectDetails';
 import Login from './pages/Login/Login';
 import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth';
@@ -16,6 +16,7 @@ import Events from './pages/Events/Events';
 import ProjectTracking from './pages/ProjectTracking/ProjectTracking.js';
 import Board from './pages/ProjectTracking/components/Board.js';
 import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
+import CreateDoc from './pages/Documentation/component/create-documentation/CreateDoc.js';
 
 const queryClient = new QueryClient()
 
@@ -76,6 +77,7 @@ function App() {
                   <Route path='/events' element={<Events/>}/>
                   <Route path='/doc' element={<Doc/>}/>
                   <Route path='/doc/:id' element={<DocBlog/>}/>
+                  <Route path='/doc/create/:id' element={<CreateDoc/>}/>
                   <Route path='/projects/tracking' element={<ProjectTracking/>}/>
                   <Route path='/projects/tracking/:projectId' element={<Board/>}/>
                 </Route>

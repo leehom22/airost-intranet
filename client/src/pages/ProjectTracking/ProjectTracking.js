@@ -22,7 +22,11 @@ return (
     <div className="flex flex-col gap-2">
         {
         projects.isLoading
-            ? "Loading"
+            ? <div className="flex flex-col gap-2">
+                <div className="skeleton h-20"></div>
+                <div className="skeleton h-20"></div>
+                <div className="skeleton h-20"></div>
+            </div>
             : projects.data.map(project => 
                 <Link to={`/projects/tracking/${project.projectId}`} state={{projectId: project.projectId}}>
                     <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-neutral-800 dark:border-gray-700 dark:hover:bg-neutral-700">

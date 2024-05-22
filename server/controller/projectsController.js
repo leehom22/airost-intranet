@@ -12,9 +12,11 @@ const getProjects = async (req, res) => {
 
 const createProject = async (req, res) => {
     try{
-        const newProject = await Project.create(req.body)
-        res.status(200).json(newProject)
-        const newProjectBoard = await ProjectBoard.create(req.body)
+        const projectId = await Project.countDocuments();
+        const newProject = {...req.body, projectId: projectId};
+        const savedNewProject = await Project.create(newProject)
+        res.status(200).json(savedNewProject)
+        const newProjectBoard = await ProjectBoard.create(newProject)
     } catch(error){
         console.log(error.message)
     }
@@ -41,6 +43,7 @@ const createProjectBoard = async (req, res) => {
         res.status(200).json(newProjectBoard)
     } catch(error){
         console.log(error.message)
+        res.status(400).json(error.message)
     }
 }
 

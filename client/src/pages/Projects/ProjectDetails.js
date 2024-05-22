@@ -1,4 +1,4 @@
-import { projectsData } from '../data/project-data';
+import { projectsData } from '../../data/project-data';
 import { useParams } from "react-router-dom";
 import './ProjectDetail.css';
 
