@@ -12,7 +12,7 @@ function Sidepanel(){
     // const showSidebar = () => setSidebar(!sidebar);
 
     const logout = () =>{
-      window.open("http://localhost:4000/auth/logout","_self")
+      window.open(`${process.env.REACT_APP_API_URL}/auth/logout`,"_self")
     }
     return (
         <>
@@ -36,12 +36,12 @@ function Sidepanel(){
             <img src="airost-icon.jpg" />
             {Sidebar.map((item, index) => {
               return (
+                !item.hideNavItem && 
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>
-                
                 </li>
               );
             })}

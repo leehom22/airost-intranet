@@ -23,14 +23,12 @@ const queryClient = new QueryClient()
 function App() {
   const [user, setUser] = useState(null);
   const [path, setPath] = useState("/");
-
   // Pass the path string from Login component
   const getPath = (p) => {
     setPath(p)
   }
-
   const getUser = async()=>{
-    fetch("http://localhost:4000/auth/login/success",{
+    fetch(`${process.env.REACT_APP_API_URL}/auth/login/success`,{
       method: "GET",
       credentials: "include",
       headers: {
@@ -52,7 +50,7 @@ function App() {
   useEffect(()=>{
     getUser();
   }, [])
-
+  console.log(user)
     return (
     <div>
     <QueryClientProvider client={queryClient}> 

@@ -1,4 +1,5 @@
 import { BsPersonCircle } from "react-icons/bs";
+import { IoMdCreate } from "react-icons/io";
 import moment from "moment/moment";
 import consts from "../../../consts/consts";
 const CardDetailsModal = ({card}) => {
@@ -17,6 +18,7 @@ const CardDetailsModal = ({card}) => {
                 </p>
             </div>
             <p className="text-xs text-neutral-400 flex flex-row gap-1 items-center"><BsPersonCircle/>{card.assignee}</p>
+            <p className="text-xs text-neutral-400 flex flex-row gap-1 items-center"><IoMdCreate/>{card.createdBy}</p>
         </div>
         <form method="dialog" className="modal-backdrop">
             <button>close</button>

@@ -5,13 +5,20 @@ import BurnBarrel from "./BurnBarrel";
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import useFetchUsers from "../../../hooks/useFetchUsers";
 import { useParams, useSearchParams } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import useGetProjects from "../../Projects/hooks/useGetProjects";
 
 const Board = () => {
     const [cards, setCards] = useState([]);
-    const {projectId} = useParams()
+    const {projectId} = useParams();
+    const user = useAuth();
+
     console.log(projectId)
+    const projectTitle = useGetProjects()?.data
+        ?.find(project => project.projectId == projectId).title;
+    console.log(projectTitle)
     const getProjectBoard = async () => {
-        return axios.get(`http://localhost:4000/projects/tracking/${projectId}`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/projects/tracking/${projectId}`)
         .then(res => {
             setCards(res.data.tasks)
             return res.data
@@ -29,7 +36,7 @@ const Board = () => {
     return (
         <div className="h-screen w-full flex flex-col items-center justify-center">
             <div className="w-11/12 mb-3">
-                <h1 className="text-4xl font-extrabold">Project</h1>
+                <h1 className="text-4xl font-extrabold">{!!projectTitle ? projectTitle : ""}</h1>
             </div>
             <div className="h-5/6 w-11/12 rounded-lg bg-neutral-900 text-neutral-50">
                 <div className="flex h-full w-full gap-3 p-12 overflow-scroll">
@@ -40,6 +47,7 @@ const Board = () => {
                     cards={cards}
                     setCards={setCards}
                     projectId={projectId}
+                    user={user}
                 />
                 <Column
                     title="TODO"
@@ -48,6 +56,7 @@ const Board = () => {
                     cards={cards}
                     setCards={setCards}
                     projectId={projectId}
+                    user={user}
                 />
                 <Column
                     title="In progress"
@@ -56,6 +65,7 @@ const Board = () => {
                     cards={cards}
                     setCards={setCards}
                     projectId={projectId}
+                    user={user}
                 />
                 <Column
                     title="Done"
@@ -64,8 +74,14 @@ const Board = () => {
                     cards={cards}
                     setCards={setCards}
                     projectId={projectId}
+                    user={user}
                 />
-                <BurnBarrel setCards={setCards} cards={cards} projectId={projectId}/>
+                <BurnBarrel 
+                    setCards={setCards} 
+                    cards={cards} 
+                    projectId={projectId}
+                    user={user}
+                />
                 </div>
             </div>
     </div>

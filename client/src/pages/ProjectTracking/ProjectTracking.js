@@ -2,19 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query'
+import useGetProjects from "../Projects/hooks/useGetProjects";
 
 export const ProjectTracking = () => {
-    const getProjects = async () => {
-        return axios.get('http://localhost:4000/projects')
-        .then(res => {
-            return res.data
-        })
-        .catch(err => console.log(err))
-        }
-    const projects = useQuery({
-        queryKey:["projects"],
-        queryFn: getProjects,
-    })
+    // const getProjects = async () => {
+    //     return axios.get('http://localhost:4000/projects')
+    //     .then(res => {
+    //         return res.data
+    //     })
+    //     .catch(err => console.log(err))
+    //     }
+    // const projects = useQuery({
+    //     queryKey:["projects"],
+    //     queryFn: getProjects,
+    // })
+
+    const projects = useGetProjects();
     console.log(projects.data)
 return (
     <div className="p-10">
@@ -27,11 +30,11 @@ return (
                 <div className="skeleton h-20"></div>
                 <div className="skeleton h-20"></div>
             </div>
-            : projects.data.map(project => 
-                <Link to={`/projects/tracking/${project.projectId}`} state={{projectId: project.projectId}}>
+            : projects.data.map((project,index) => 
+                <Link to={`/projects/tracking/${project.projectId}`} state={{projectId: project.projectId}} key={index}>
                     <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-neutral-800 dark:border-gray-700 dark:hover:bg-neutral-700">
                     <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                    <p class="font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
                     </div>
                 </Link>
             )

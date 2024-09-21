@@ -8,32 +8,35 @@ export const Sidebar = [
     title: 'Dashboard',
     path: '/',
     icon: <cgicon.CgProfile />,
-    cName: 'side-text'
+    cName: 'side-text',
+    hideNavItem: false,
   },
   {
     title: 'Projects',
     path: '/projects',
     icon: <aiicon.AiFillProject />,
-    cName: 'side-text'
+    cName: 'side-text',
+    hideNavItem: false,
   },
   {
     title: 'Project Tracking',
     path: '/projects/tracking',
     icon: <faicon.FaChartLine/>,
-    cName: 'side-text'
+    cName: 'side-text',
+    hideNavItem: false,
   },
   {
     title: 'Events',
     path: '/events',
     icon: <aiicon.AiFillCalendar />,
-    cName: 'side-text'
+    cName: 'side-text',
+    hideNavItem: true,
   },
   {
     title: 'Documentation',
     path: '/doc',
     icon: <faicon.FaFilePdf />,
-    cName: 'side-text'
+    cName: 'side-text',
+    hideNavItem: true,
   },
-
-  
 ];

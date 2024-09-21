@@ -13,7 +13,12 @@ const getProjects = async (req, res) => {
 const createProject = async (req, res) => {
     try{
         const projectId = await Project.countDocuments();
-        const newProject = {...req.body, projectId: projectId};
+        const lastProject = await Project.findOne({}, {}, { sort: { 'createdAt' : -1 } })
+        console.log(lastProject.projectId)
+        const newProject = {
+            projectId: lastProject.projectId + 1,
+            ...req.body,
+        };
         const savedNewProject = await Project.create(newProject)
         res.status(200).json(savedNewProject)
         const newProjectBoard = await ProjectBoard.create(newProject)

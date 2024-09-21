@@ -14,14 +14,14 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
     }, [])
 
     const getUsers = async => {
-        axios.get('http://localhost:4000/admin/users')
+        axios.get(`${process.env.REACT_APP_API_URL}/admin/users`)
         .then(users => setUsers(users.data))
         .catch(err => console.log(err))
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
   
-        const response = await axios.post('http://localhost:4000/admin/users/verified', {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/users/verified`, {
             name : name,
             email : email,
             position : position,

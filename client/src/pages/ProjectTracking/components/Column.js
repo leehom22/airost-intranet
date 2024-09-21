@@ -3,7 +3,7 @@ import Card from "./Card";
 import DropIndicator from "./DropIndicator";
 import AddCard from "./AddCard";
 import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
-const Column = ({ title, headingColor, cards, column, setCards, projectId }) => {
+const Column = ({ title, headingColor, cards, column, setCards, projectId, user }) => {
     const [active, setActive] = useState(false);
     const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
 
@@ -131,7 +131,12 @@ const Column = ({ title, headingColor, cards, column, setCards, projectId }) => 
                 return <Card key={c._id} card={c} handleDragStart={handleDragStart}/>;
                 })}
                 <DropIndicator beforeId={null} column={column} />
-                <AddCard column={column} setCards={setCards} addNewCard={addNewCard}/>
+                <AddCard 
+                    column={column} 
+                    setCards={setCards} 
+                    addNewCard={addNewCard} 
+                    user={user}
+                />
             </div>
             </div>
         </>

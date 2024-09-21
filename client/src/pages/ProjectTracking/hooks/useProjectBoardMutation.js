@@ -4,7 +4,7 @@ import { useQueryClient, useMutation} from '@tanstack/react-query'
 const useProjectBoardMutation = ({projectId, cards}) => {
     const queryClient = useQueryClient()
     const updateProjectBoard = async () => {
-        return axios.put('http://localhost:4000/projects/tracking',{
+        return axios.put(`${process.env.REACT_APP_API_URL}/projects/tracking`,{
             projectId: projectId,
             tasks: cards,
         })

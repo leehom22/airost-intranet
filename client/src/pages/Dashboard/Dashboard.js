@@ -66,66 +66,69 @@ function Dashboard() {
       </div>
       <div className="buttons-container">
         <div className="buttons">
-          <button className="edit" data-toggle="modal" data-target="#exampleModal" onClick={handleShowModal}>Edit Profile</button>
+          {/* <button className="edit" data-toggle="modal" data-target="#exampleModal" onClick={handleShowModal}>Edit Profile</button> */}
+          <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_2').showModal()}>Edit Profile</button>
           <button className=""></button>
           <button className=""></button>
 
         </div>
       </div>
-      {/* <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Profile</Modal.Title>
-                </Modal.Header>
-                    <Modal.Body>
-                            <form className="form" id='userForm' onSubmit={handleSubmit}>
-                                <div className="subtitle">Profile Info</div>
-
-                                <div className="form-floating mb-3">
-                                    <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder={user.description}  value={description}
-                                        onChange={(e) => {setDescription(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Description</label>
-                                </div>
-
-                                <div className="form-floating mb-3">
-                                    <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder={user.year}  value={year}
-                                        onChange={(e) => {setYear(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Year</label>
-                                </div>
-
-                                <div className="form-floating mb-3">
-                                    <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder={user.course}  value={course}
-                                        onChange={(e) => {setCourse(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Course</label>
-                                </div>
-
-                                <div className="form-floating mb-3">
-                                    <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder={user.phonenum}  value={phonenum}
-                                        onChange={(e) => {setPhonenum(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Phone Number</label>
-                                </div>
-
-                                <div className="form-floating mb-3">
-                                    <input 
-                                        id="name" className="form-control" required
-                                        type="text" placeholder={user.instagram}  value={instagram}
-                                        onChange={(e) => {setInstagram(e.target.value)}}/>
-                                    <label htmlFor="name" className='form-label'>Instagram Username</label>
-                                </div>
-                            </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button type="submit" form='userForm' className="btn btn-success">Update</button>
-                    </Modal.Footer>
-                </Modal> */}
-      
+      <dialog id="my_modal_2" className="modal">
+          <div className="modal-box">
+            <form className="form grid grid-cols-1 gap-2" id='userForm' onSubmit={handleSubmit}>
+              <div className="subtitle">Profile Info</div>
+                <label class="w-full max-w-xs">
+                    <div class="label">
+                      <span class="label-text">Description</span>
+                    </div>
+                    <input 
+                        id="name" className="input input-bordered w-full max-w-xs" required
+                        type="text" placeholder={user.description}  value={description}
+                        onChange={(e) => {setDescription(e.target.value)}}/>
+                </label>
+                <label class="w-full max-w-xs">
+                    <div class="label">
+                      <span class="label-text">Year</span>
+                    </div>
+                    <input 
+                        id="name" className="input input-bordered w-full max-w-xs" required
+                        type="text" placeholder={user.year}  value={year}
+                        onChange={(e) => {setYear(e.target.value)}}/>
+                </label>
+                <label class="w-full max-w-xs">
+                    <div class="label">
+                      <span class="label-text">Course</span>
+                    </div>
+                    <input 
+                        id="name" className="input input-bordered w-full max-w-xs" required
+                        type="text" placeholder={user.course}  value={course}
+                        onChange={(e) => {setCourse(e.target.value)}}/>
+                </label>
+                <label class="w-full max-w-xs">
+                    <div class="label">
+                      <span class="label-text">Phone Number</span>
+                    </div>
+                    <input 
+                        id="name" className="input input-bordered w-full max-w-xs" required
+                        type="text" placeholder={user.phonenum}  value={phonenum}
+                        onChange={(e) => {setPhonenum(e.target.value)}}/>
+                </label>
+                <label class="w-full max-w-xs">
+                    <div class="label">
+                      <span class="label-text">Instagram</span>
+                    </div>
+                    <input 
+                        id="name" className="input input-bordered w-full max-w-xs" required
+                        type="text" placeholder={user.instagram}  value={instagram}
+                        onChange={(e) => {setInstagram(e.target.value)}}/>
+                </label>
+              </form>
+              <button type="submit" form='userForm' className="btn btn-neutral">Update</button>
+          </div>
+          <form method="dialog" className="modal-backdrop">
+            <button>close</button>
+          </form>
+      </dialog>
       
     </div>
   );

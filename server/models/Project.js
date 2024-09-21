@@ -6,6 +6,8 @@ const project = new mongoose.Schema({
         required:true,
      },
     title: String,
-});
+    description: String,
+    lead: String,
+},{timestamps: true});
 
 module.exports = mongoose.model('Project', project);

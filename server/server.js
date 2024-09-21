@@ -40,13 +40,13 @@ app.use(passport.authenticate('session'))
 
 app.use(passport.initialize())
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: true,
   }))
 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.REACT_APP_URL,
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
 }))

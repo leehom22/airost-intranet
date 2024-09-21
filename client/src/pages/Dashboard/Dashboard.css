@@ -115,7 +115,7 @@
   width: 80vw;
 }
 
-.dashboard .buttons {
+/* .dashboard .buttons {
   display: flex;
   grid-gap: 2%;
   width: 80%;
@@ -130,4 +130,4 @@
   border-radius: 50px;
   background-color: #4d53df;
   box-shadow: 0 2px 10px 0px rgba(23, 19, 19, 0.2);
-}
+} */

@@ -6,14 +6,13 @@ import useFetchUsers from "../../../hooks/useFetchUsers";
 import Datepicker from "react-tailwindcss-datepicker"; 
 import { useForm } from "react-hook-form";
 
-const AddCard = ({ column, setCards, addNewCard }) => {
+const AddCard = ({ column, setCards, addNewCard, user }) => {
     const [adding, setAdding] = useState(false);
     const [dueDate, setDueDate] = useState({
         startDate: null,
         endDate: null,
     });
     const users = useFetchUsers();
-
     const {
         register,
         handleSubmit,
@@ -35,6 +34,7 @@ const AddCard = ({ column, setCards, addNewCard }) => {
             column,
             title: data.title.trim(),
             assignee: data.assignee,
+            createdBy: user.email,
             description: data.description,
             priority: data.priority,
             dueDate: dueDate.startDate ?? new Date(),

@@ -2,15 +2,14 @@ import React from 'react';
 import { useState } from 'react';
 import './Projects.css';
 import ProjectList from '../../components/ProjectList';
-import { projectsData } from '../../data/project-data';
 import { useForm } from "react-hook-form"
 import { useMutation} from '@tanstack/react-query'
 import useFetchUsers from "../../hooks/useFetchUsers";
+import useGetProjects from './hooks/useGetProjects';
 import axios from 'axios'
 
 function Projects() {
-
-  const [projects, setProjects] = useState(projectsData);
+  const projects = useGetProjects();
   const {
     register,
     handleSubmit,
@@ -22,8 +21,10 @@ function Projects() {
   console.log(users.data)
 
   const createProject = async (project) => {
-      return axios.post('http://localhost:4000/projects',{
-          title: project.title
+      return axios.post(`${process.env.REACT_APP_API_URL}/projects`,{
+          title: project.title,
+          description: project.description ? project.description : "",
+          lead: project.lead,
       })
   }
   const createProjectMutation = useMutation({
@@ -45,7 +46,14 @@ function Projects() {
         <h1 className='project-title'>Projects</h1>
         <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_2').showModal()}>Add New Project</button>
       </div>
-        <ProjectList projects={ projects }></ProjectList>
+      {projects.isLoading 
+        ? <div className="flex flex-col gap-2">
+            <div className="skeleton h-20"></div>
+            <div className="skeleton h-20"></div>
+            <div className="skeleton h-20"></div>
+          </div>
+        : <ProjectList projects={ projects.data }></ProjectList>
+      }
 
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box">
