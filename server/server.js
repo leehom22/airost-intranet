@@ -29,26 +29,35 @@ const connectDatabase = async () => {
   };
   
 connectDatabase();
-
+app.set("trust proxy", 1); 
 app.use(cookieSession({
     name:"session",
     keys:["key1","key2"],
     maxAge: 24 * 60 * 60 * 100,
 }))
 
-app.use(passport.authenticate('session'))
-
-app.use(passport.initialize())
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      secure: true, 
+      sameSite: "none",
+    },
+    proxy: true,
   }))
+app.use(passport.authenticate('session'))
+
+app.use(passport.initialize())
+app.use(passport.session());
+
 
 app.use(cors({
     origin: process.env.REACT_APP_URL,
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
+    exposedHeaders: ["set-cookie"]
 }))
 
 app.use("/auth", authRoutes)

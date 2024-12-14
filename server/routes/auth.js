@@ -4,6 +4,8 @@ const passport = require("passport")
 require('dotenv').config()
 
 router.get('/login/success',(req, res)=>{
+    console.log(req.user)
+    console.log(req.isAuthenticated())
     if(req.user){
         res.status(200).json({
             success: true,

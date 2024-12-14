@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy({
   },
   async function(accessToken, refreshToken, profile,cb) {
     try{
-
+      
       let user = await User.findOne({googleID: profile.id})
       if(user){
         cb(null, user)
@@ -47,7 +47,7 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser((user,cb)=>{
-    cb(null,user)
+  cb(null,user)
 })
 
 passport.deserializeUser(function(id, cb) {
