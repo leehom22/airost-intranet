@@ -35,17 +35,17 @@ app.set("trust proxy", 1);
 //     keys:["key1","key2"],
 //     maxAge: 24 * 60 * 60 * 100,
 // }))
-
+const isProduction = process.env.NODE_ENV === 'production';
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000, 
-      secure: true, 
-      sameSite: "none",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
     },
-    proxy: true,
+    proxy: isProduction,
   }))
 app.use(passport.authenticate('session'))
 
