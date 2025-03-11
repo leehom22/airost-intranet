@@ -13,11 +13,29 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
         getUsers();
     }, [])
 
-    const getUsers = async => {
+    const getUsers = async () => {
         axios.get(`${process.env.REACT_APP_API_URL}/admin/users`)
         .then(users => setUsers(users.data))
         .catch(err => console.log(err))
     }
+
+    const approveUser = async (user) => {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/admin/users/verified`, {
+                name: user.name,
+                email: user.email,
+                position: "member"
+            });
+            
+            if (response.data.createStatus === "success") {
+                // Refresh the user list to show updated status
+                getUsers();
+            }
+        } catch (error) {
+            console.error("Error approving user:", error);
+        }
+    }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
   
@@ -70,11 +88,8 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
                     <button>close</button>
                 </form>
                 </dialog>
-                {/* <div className="row">
-                        <input id="email" className="form-control" type="text" placeholder="Search for name or email"/>
-                </div> */}
                 <div>
-                    <table className='table table-zebra'>
+                    <table className='table table-zebra m-5'>
                         <thead>
                             <tr>
                                 <th></th>
@@ -90,13 +105,22 @@ import { FaCheck, FaXmark } from "react-icons/fa6";const Admin = () => {
                                     (user,index) => {
                                         return <tr key={index}>
                                             <td><img src={user.photo} alt="Profile"/></td>
-                                            <td>{user.email}</td>
+                                            <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td>{user.position}</td>
-                                            <td>{user.verified 
-                                                    ? <FaCheck/>
-                                                    : <FaXmark/>
-                                            }</td>
+                                            <td className="text-center">
+                                                <div className="flex items-center justify-center h-full w-full">
+                                                    {user.verified 
+                                                        ? <FaCheck className="text-success" />
+                                                        : <button 
+                                                            className="btn btn-sm btn-success w-full text-white"
+                                                            onClick={() => approveUser(user)}
+                                                          >
+                                                            Approve
+                                                          </button>
+                                                    }
+                                                </div>
+                                            </td>
                                         </tr>
                                     }
                                 )

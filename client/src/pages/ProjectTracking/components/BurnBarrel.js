@@ -1,12 +1,14 @@
 import React, { useState }from "react";
 import {FiTrash}  from "react-icons/fi";
 import { FaFire } from "react-icons/fa";
-import { Button, message, Space } from 'antd';
+import { Button, message, Space, Modal } from 'antd';
 import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
 
 const BurnBarrel = ({ setCards, cards, projectId, user }) => {
     const [active, setActive] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
+    const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
+    const [cardToDelete, setCardToDelete] = useState(null);
     const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
 
     const handleDragOver = (e) => {
@@ -29,10 +31,26 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
             setActive(false);
             return;
         }
-        setCards((pv) => pv.filter((c) => c._id !== cardId));
-        projectBoardMutation.mutate();
-        successDeleteNotification();
+        
+        // Instead of deleting immediately, show confirmation modal
+        setCardToDelete(selectedCard);
+        setConfirmDeleteModalOpen(true);
         setActive(false);
+    };
+
+    const confirmDelete = () => {
+        if (cardToDelete) {
+            setCards((pv) => pv.filter((c) => c._id !== cardToDelete._id));
+            projectBoardMutation.mutate();
+            successDeleteNotification();
+            setConfirmDeleteModalOpen(false);
+            setCardToDelete(null);
+        }
+    };
+
+    const cancelDelete = () => {
+        setConfirmDeleteModalOpen(false);
+        setCardToDelete(null);
     };
 
     const errorDeleteNotification = () => {
@@ -48,8 +66,6 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
           content: 'Task deleted successfully',
         });
     };
-
-
     
     return (
         <>
@@ -66,8 +82,25 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
             >
             {active ? <FaFire className="animate-bounce" /> : <FiTrash />}
             </div>
+
+            <Modal
+                title="Confirm Delete"
+                open={confirmDeleteModalOpen}
+                onOk={confirmDelete}
+                onCancel={cancelDelete}
+                okText="Delete"
+                cancelText="Cancel"
+                okButtonProps={{ danger: true }}
+            >
+                <p>Are you sure you want to delete this task?</p>
+                {cardToDelete && (
+                    <div className="border rounded bg-gray-50">
+                        <p><strong>{cardToDelete.title}</strong></p>
+                    </div>
+                )}
+            </Modal>
         </>
     );
-    };
+};
 
 export default BurnBarrel;

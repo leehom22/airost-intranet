@@ -1,49 +1,45 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import React from "react";
 import { Link } from "react-router-dom";
-import { useQuery } from '@tanstack/react-query'
 import useGetProjects from "../Projects/hooks/useGetProjects";
 
 export const ProjectTracking = () => {
-    // const getProjects = async () => {
-    //     return axios.get('http://localhost:4000/projects')
-    //     .then(res => {
-    //         return res.data
-    //     })
-    //     .catch(err => console.log(err))
-    //     }
-    // const projects = useQuery({
-    //     queryKey:["projects"],
-    //     queryFn: getProjects,
-    // })
+  const { data: projects, isLoading, isError } = useGetProjects();
 
-    const projects = useGetProjects();
-    console.log(projects.data)
-return (
-    <div className="p-10">
-    <h1 className="text-4xl font-extrabold mb-3">Projects</h1>
-    <div className="flex flex-col gap-2">
-        {
-        projects.isLoading
-            ? <div className="flex flex-col gap-2">
-                <div className="skeleton h-20"></div>
-                <div className="skeleton h-20"></div>
-                <div className="skeleton h-20"></div>
-            </div>
-            : projects.data.map((project,index) => 
-                <Link to={`/projects/tracking/${project.projectId}`} state={{projectId: project.projectId}} key={index}>
-                    <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-neutral-800 dark:border-gray-700 dark:hover:bg-neutral-700">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{project.title}</h5>
-                    <p class="font-normal text-gray-700 dark:text-gray-400">{project.description}</p>
-                    </div>
-                </Link>
-            )
-        }
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6">Projects</h1>
+      
+      {isLoading ? (
+        <div className="flex flex-col gap-4">
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className="h-20 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+          ))}
+        </div>
+      ) : isError ? (
+        <div className="p-4 bg-red-100 dark:bg-red-900/20 rounded-lg text-center">
+          <p className="text-red-700 dark:text-red-400">Unable to load projects. Please try again later.</p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {projects?.map((project) => (
+            <Link 
+              to={`/projects/tracking/${project.projectId}`} 
+              state={{ projectId: project.projectId }} 
+              key={project.projectId}
+              className="block transition-colors"
+            >
+              <div className="p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow hover:bg-gray-50 dark:hover:bg-gray-700">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{project.title}</h2>
+                {project.description && (
+                  <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
-    </div>
-    // <Board />
-
-);
+  );
 };
 
 export default ProjectTracking;
