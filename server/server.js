@@ -30,11 +30,11 @@ const connectDatabase = async () => {
   
 connectDatabase();
 app.set("trust proxy", 1); 
-app.use(cookieSession({
-    name:"session",
-    keys:["key1","key2"],
-    maxAge: 24 * 60 * 60 * 100,
-}))
+// app.use(cookieSession({
+//     name:"session",
+//     keys:["key1","key2"],
+//     maxAge: 24 * 60 * 60 * 100,
+// }))
 
 app.use(session({
     secret: process.env.PASSPORT_SECRET,
