@@ -26,7 +26,7 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
             priority: "low",
         }
       })
-
+      
     const onSubmit = (data) => {
         if (!data.title.trim().length) return;
     
@@ -71,11 +71,12 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
                 <div className="h-min col-span-3">    
                         <Datepicker 
                             asSingle={true} 
+                            useRange={false}
                             value={dueDate} 
                             onChange={(newValue) => {
                                 setDueDate(newValue); 
 
-                                console.log(dueDate)
+                                console.log("Create a task at "+newValue.startDate)
                             }} 
                         /> 
                     </div>
