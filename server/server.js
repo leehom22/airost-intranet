@@ -15,6 +15,7 @@ const projectRoutes = require('./routes/projectsRoutes');
 
 require('dotenv').config()
 
+
 // Connect to db
 const connectDatabase = async () => {
     try {
