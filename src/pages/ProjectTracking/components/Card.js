@@ -7,8 +7,10 @@ import moment from "moment/moment";
 import consts from "../../../consts/consts";
 import { useSelector } from "react-redux";
 import { setDate } from "./cardDetails/ReduxStore";
+import { set } from "react-hook-form";
+import usePBMUpdate from "../hooks/usePBMUpdate";
 
-const Card = ({ handleDragStart, card }) => {
+const Card = ({ handleDragStart, card, projectId }) => {
     const id=card._id
     const priorityConsts = consts.priorityConsts;
     const sharedValue=useSelector((state)=>state.shared.cards[id])
@@ -17,9 +19,21 @@ const Card = ({ handleDragStart, card }) => {
     const [dueDate,setDate]=useState(card.dueDate)
     const [priority,setPriority]=useState(card.priority)
     const [assignee,setAssignee]=useState(card.assignee)
+    const [updatedTasks,setUpdatedTasks]=useState({
+        column:card.column,
+        title:card.title,
+        assignee:card.assignee,
+        createdBy:card.createdBy,
+        description:card.description,
+        priority:card.priority,
+        dueDate:card.dueDate,
+        task_id:card.task_id,
+    })
+    const projectBoardMutation=usePBMUpdate({projectId:projectId,cards:updatedTasks})
 
     useEffect(() => {
         const { title, description, date, priority, assignee } = sharedValue || {};
+            //update data to MongoDB
     
         if (title) {
             setTitle(title);
@@ -27,44 +41,75 @@ const Card = ({ handleDragStart, card }) => {
             setDate(date || card.dueDate);
             setPriority(priority || card.priority);
             setAssignee(assignee || card.assignee);
-            console.log("From Card.js useEffect title", title);
+            //console.log("From Card.js useEffect title", title);
+            //console.log("ProjectId from Card.js: ", projectId);
         } else if (date) {
             setTitle(title||card.title);
             setDescription(description||card.description);
             setDate(date);
             setPriority(priority||card.priority);
             setAssignee(assignee || card.assignee);
-            console.log("From Card.js useEffect date", date);
+            //console.log("From Card.js useEffect date", date);
         } else if (priority) {
             setTitle(title||card.title);
             setDescription(description||card.description);
             setDate(dueDate||card.dueDate);
-            console.log("From Card.js useEffect priority", priority);
             setPriority(priority);
             setAssignee(assignee || card.assignee);
+            //console.log("From Card.js useEffect priority", priority);
         } else if (assignee) {
             setTitle(title||card.title);
             setDescription(description||card.description);
             setDate(dueDate||card.dueDate);
             setPriority(priority||card.priority);
             setAssignee(assignee);
-            console.log("assignee changed: ", assignee);
+            //console.log("From Card.js useEffect assignee: ", assignee);
         } else {
             setTitle(title||card.title);
             setDescription(description||card.description);
             setDate(dueDate||card.dueDate);
             setPriority(priority||card.priority);
             setAssignee(assignee || card.assignee);
-            console.log("From Card.js useEffect else section");
+            //console.log("From Card.js useEffect else section");
         }
     }, [sharedValue]);
     
+    useEffect(() => {
+        if (!sharedValue) return;
+      
+        const { title, description, date, priority, assignee } = sharedValue;
+      
+        const shouldUpdate =
+          title !== card.title ||
+          description !== card.description ||
+          date !== card.dueDate ||
+          priority !== card.priority ||
+          assignee !== card.assignee;
+      
+        if (shouldUpdate) {
+          setUpdatedTasks(prev => ({
+            ...prev,
+            title: title || card.title,
+            assignee: assignee || card.assignee,
+            description: description || card.description,
+            priority: priority || card.priority,
+            dueDate: date || card.dueDate,
+          }));
+        }
+      }, [sharedValue]);
 
-// useEffect(() => {
-//     if (dueDate === null) {
-//         setDate(card.date);
-//     }
-// }, [dueDate, card.date]);
+      useEffect(() => {
+        if (
+          updatedTasks.title !== card.title ||
+          updatedTasks.description !== card.description ||
+          updatedTasks.dueDate !== card.dueDate ||
+          updatedTasks.priority !== card.priority ||
+          updatedTasks.assignee !== card.assignee
+        ) {
+          console.log("Mutating with updated task:", updatedTasks);
+          projectBoardMutation.mutate();
+        }
+      }, [updatedTasks]); 
 
     return (
         <>

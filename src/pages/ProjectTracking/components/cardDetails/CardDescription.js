@@ -9,7 +9,7 @@ export default function CardDescription({value,id}){
     const [details,setDetail]=useState(value)
     const [isEditing, setIsEditing] = useState(false);
     const dispatch=useDispatch();
-    console.log(value)
+    //console.log(value)
 
     const handleKeyDown=(e)=>{
         if(e.key==="Enter"){
@@ -17,7 +17,7 @@ export default function CardDescription({value,id}){
             setIsEditing(false);
             
         }
-        console.log(details)
+        //console.log(details)
     }
 
     const handleBlur=()=>{
@@ -34,7 +34,7 @@ export default function CardDescription({value,id}){
                 type="text"
                 value={details}
                 autoFocus
-                onChange={(e)=>setDetail(e.target.value)}
+                onChange={(e)=>{setDetail(e.target.value)}}
                 style={{color: "white"}}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}

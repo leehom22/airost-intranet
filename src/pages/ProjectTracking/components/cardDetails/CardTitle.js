@@ -13,7 +13,7 @@ export default function CardTitle({value,id}){
             dispatch(setTitle({id,title:details})) //Write to redux store 
             setIsEditing(false);
         }
-        console.log(details)
+        //console.log(details)
     }
 
     const handleBlur=()=>{
@@ -33,7 +33,7 @@ export default function CardTitle({value,id}){
                 autoFocus
                 onChange={(e)=>{
                     setDetail(e.target.value)
-                    dispatch(setTitle({id,title:e.target.value})) //Write to redux store 
+                    // dispatch(setTitle({id,title:e.target.value})) //Write to redux store 
 
                 }} //dispatch(setValue(e.target))
                 style={{color: "white"}}

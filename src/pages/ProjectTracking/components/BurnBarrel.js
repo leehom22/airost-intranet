@@ -2,14 +2,14 @@ import React, { useState }from "react";
 import {FiTrash}  from "react-icons/fi";
 import { FaFire } from "react-icons/fa";
 import { Button, message, Space, Modal } from 'antd';
-import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
+import usePBMRefresh from "../hooks/usePBMRefresh";
 
 const BurnBarrel = ({ setCards, cards, projectId, user }) => {
     const [active, setActive] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
     const [cardToDelete, setCardToDelete] = useState(null);
-    const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
+    const projectBoardMutation = usePBMRefresh({projectId: projectId, cards: cards});
 
     const handleDragOver = (e) => {
         e.preventDefault();
