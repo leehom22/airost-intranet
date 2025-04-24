@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue,setTitle, setDate } from "./ReduxStore";
+import {setDate } from "./ReduxStore";
 import Datepicker from "react-tailwindcss-datepicker";
 import moment from "moment";
 
@@ -18,6 +18,7 @@ export default function CardDueDate({value,id}){
             dispatch(setDate({id,date:duedate})) //Write to redux store 
             setShowPicker(false)
             setIsEditing(false);
+            e.preventDefault()
         }
     }
 

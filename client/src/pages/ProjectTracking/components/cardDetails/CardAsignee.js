@@ -11,6 +11,20 @@ export default function CardAsignee({value,id}){
     const dispatch=useDispatch();
     const users = useFetchUsers();
     
+         const handleKeyDown=(e)=>{
+            if(e.key==="Enter"){
+                dispatch(setAssignee({id,assignee:assigneeValue})) //Write to redux store 
+                setIsEditing(false);
+                e.preventDefault()
+            }
+            //console.log(details)
+        }
+
+        const handleBlur=()=>{
+            dispatch(setAssignee({id,assignee:assigneeValue})) //Write to redux store 
+            setIsEditing(false);
+        }
+    
     return (
         <>
         {
@@ -23,9 +37,13 @@ export default function CardAsignee({value,id}){
                             setAssigneeValue(selectedAssignee.target.value);
                             dispatch(setAssignee({id,assignee:selectedAssignee.target.value}))
                             setIsEditing(false);
-                            console.log(selectedAssignee.target.value)}
+                            //console.log(selectedAssignee.target.value)
+                        }
                     
-                        } 
+                        }
+                    onBlur={handleBlur}
+                    onKeyDown={handleKeyDown} 
+                    
                     >
                         <option value="no_assignee">{assigneeValue}</option>
                         {users.data?.map(user => (

@@ -12,13 +12,15 @@ export default function CardTitle({value,id}){
         if(e.key==="Enter"){
             dispatch(setTitle({id,title:details})) //Write to redux store 
             setIsEditing(false);
+            e.preventDefault()
         }
-        console.log(details)
+        //console.log(details)
     }
 
     const handleBlur=()=>{
         dispatch(setTitle({id,title:details})) //Write to redux store 
         setIsEditing(false);
+        //console.log("Modal close")
     }
 
     return (
@@ -33,7 +35,7 @@ export default function CardTitle({value,id}){
                 autoFocus
                 onChange={(e)=>{
                     setDetail(e.target.value)
-                    dispatch(setTitle({id,title:e.target.value})) //Write to redux store 
+                    // dispatch(setTitle({id,title:e.target.value})) //Write to redux store 
 
                 }} //dispatch(setValue(e.target))
                 style={{color: "white"}}

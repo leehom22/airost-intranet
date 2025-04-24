@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import Card from "./Card";
 import DropIndicator from "./DropIndicator";
 import AddCard from "./AddCard";
-import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
+import usePBMRefresh from "../hooks/usePBMRefresh";
+import usePBMCreate from "../hooks/usePBMCreate";
 const Column = ({ title, headingColor, cards, column, setCards, projectId, user }) => {
     const [active, setActive] = useState(false);
-    const projectBoardMutation = useProjectBoardMutation({projectId: projectId, cards: cards});
+    const projectBoardMutation = usePBMRefresh({projectId: projectId, cards: cards});
+    const createCard = usePBMCreate({projectId: projectId, cards:cards});
 
     const addNewCard = () => {
-        projectBoardMutation.mutate();
+        //function run successfully 
+        createCard.mutate()
+        console.log("Check created card._id: ",cards.task_id);
+        //console.log("ProjectId: ", projectId);
     }
 
     const handleDragStart = (e, card) => {
@@ -128,7 +133,7 @@ const Column = ({ title, headingColor, cards, column, setCards, projectId, user 
                 }`}
             >
                 {filteredCards.map((c) => {
-                return <Card key={c._id} card={c} handleDragStart={handleDragStart}/>;
+                return <Card key={c._id} card={c} handleDragStart={handleDragStart} projectId={projectId}/>;
                 })}
                 <DropIndicator beforeId={null} column={column} />
                 <AddCard 

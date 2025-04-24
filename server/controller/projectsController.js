@@ -32,6 +32,8 @@ const getProjectBoard = async (req, res) => {
     if (!isNaN(projectId)){
         try{
             let projectBoard = await ProjectBoard.findOne({"projectId": projectId})
+            const tasks=projectBoard
+            
             res.status(200).json(projectBoard)
         } catch(error){
             console.log(error.message)
@@ -43,20 +45,49 @@ const getProjectBoard = async (req, res) => {
 }
 
 const createProjectBoard = async (req, res) => {
+    // if projectId(docuemnt) is not available in the db, then create a new document
     try{
-        const newProjectBoard = await ProjectBoard.create(req.body)
-        res.status(200).json(newProjectBoard)
+        const existingBoard=await ProjectBoard.findOne({projectId:req.body.projectId})
+        if(!existingBoard){
+            const newProjectBoard = await ProjectBoard.create(req.body)
+            res.status(201).json(newProjectBoard)
+            console.log("Created new project board")
+        }else{
+            // If the board already exists, update the existing project board with the new tasks
+            existingBoard.tasks = req.body.tasks
+            await existingBoard.save()
+            res.status(200).json(existingBoard)
+            console.log(`Creating tasks...Project board with id ${existingBoard.projectId} already exists, tasks updated.`);
+        }
     } catch(error){
-        console.log(error.message)
-        res.status(400).json(error.message)
+        console.log("Error creating/updating project board: ", error.message);
+        res.status(400).json(error.message);
     }
 }
 
-const updateProjectBoard = async (req, res) => {
-    console.log(req.body)
+const refreshProjectBoard = async (req, res) => {
+
     try{
         const updatedProjectBoard = await ProjectBoard.findOneAndUpdate({projectId: req.body.projectId},{$set:{tasks: req.body.tasks}})
         res.status(200).json(updatedProjectBoard)
+    }catch{error => console.log(error.message)}
+}
+
+const updateProjectBoard = async (req, res) => {
+
+    try{
+        const updatedProjectBoard = await ProjectBoard.findOneAndUpdate(
+            {projectId: req.body.projectId,
+                "tasks.task_id": req.body.tasks.task_id,
+            },
+            {$set:
+                {"tasks.$": req.body.tasks}
+            },
+            {new:true}
+        )
+        console.log("Updating project...update successfully at document ",req.body.projectId,"at ",req.body.tasks)
+        res.status(200).json(updatedProjectBoard)
+
     }catch{error => console.log(error.message)}
 }
 module.exports = {
@@ -64,6 +95,7 @@ module.exports = {
     createProject,
     getProjectBoard,
     createProjectBoard,
-    updateProjectBoard
+    updateProjectBoard,
+    refreshProjectBoard
 }
 
