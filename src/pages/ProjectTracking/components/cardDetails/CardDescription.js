@@ -13,15 +13,15 @@ export default function CardDescription({value,id}){
 
     const handleKeyDown=(e)=>{
         if(e.key==="Enter"){
-            dispatch(setDescription({id,title:details}))
+            dispatch(setDescription({id,description:details}))
             setIsEditing(false);
-            
+            e.preventDefault()
         }
         //console.log(details)
     }
 
     const handleBlur=()=>{
-        dispatch(setDescription({id,title:details}))
+        dispatch(setDescription({id,description:details}))
         setIsEditing(false);
     }
 

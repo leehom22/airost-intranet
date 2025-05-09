@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue,setTitle,setPriority } from "./ReduxStore";
+import { setValue,setPriority } from "./ReduxStore";
 import consts from "../../../../consts/consts";
 
 export default function CardPriority({value,id}){
@@ -14,8 +14,9 @@ export default function CardPriority({value,id}){
         if(e.key==="Enter"){
             dispatch(setPriority({id,priority:priority})) //Write to redux store 
             setIsEditing(false);
+            e.preventDefault()
         }
-        console.log(priority)
+        //console.log(priority)
     }
 
     const handleBlur=()=>{

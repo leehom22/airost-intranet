@@ -12,6 +12,7 @@ export default function CardTitle({value,id}){
         if(e.key==="Enter"){
             dispatch(setTitle({id,title:details})) //Write to redux store 
             setIsEditing(false);
+            e.preventDefault()
         }
         //console.log(details)
     }
@@ -19,6 +20,7 @@ export default function CardTitle({value,id}){
     const handleBlur=()=>{
         dispatch(setTitle({id,title:details})) //Write to redux store 
         setIsEditing(false);
+        //console.log("Modal close")
     }
 
     return (

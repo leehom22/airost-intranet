@@ -3,6 +3,7 @@ import {FiTrash}  from "react-icons/fi";
 import { FaFire } from "react-icons/fa";
 import { Button, message, Space, Modal } from 'antd';
 import usePBMRefresh from "../hooks/usePBMRefresh";
+import "../../../App.css"
 
 const BurnBarrel = ({ setCards, cards, projectId, user }) => {
     const [active, setActive] = useState(false);
@@ -25,7 +26,7 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
         const selectedCard = cards.find((c) => c._id == cardId);
         console.log("selectedCard: ",selectedCard)
         console.log("user: ",user)
-        const userIsCreator = selectedCard.createdBy != user.email; 
+        const userIsCreator = selectedCard?.createdBy !== user?.email; 
         if(userIsCreator && !user.position?.includes("admin")){
             errorDeleteNotification();
             setActive(false);
@@ -40,7 +41,7 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
 
     const confirmDelete = () => {
         if (cardToDelete) {
-            setCards((pv) => pv.filter((c) => c._id !== cardToDelete._id));
+            setCards((pv) => pv.filter((c) => c._id !== cardToDelete._id)); //Keep all cards except the one that match the condition (delete card)
             projectBoardMutation.mutate();
             successDeleteNotification();
             setConfirmDeleteModalOpen(false);
@@ -90,8 +91,9 @@ const BurnBarrel = ({ setCards, cards, projectId, user }) => {
                 onCancel={cancelDelete}
                 okText="Delete"
                 cancelText="Cancel"
-                okButtonProps={{ danger: true }}
-            >
+                closeIcon={false}
+                okButtonProps={{ danger: true, className:"pr-5 pl-1" }}
+                cancelButtonProps={{ className:"pr-5 pl-1" }}>
                 <p>Are you sure you want to delete this task?</p>
                 {cardToDelete && (
                     <div className="border rounded bg-gray-50">

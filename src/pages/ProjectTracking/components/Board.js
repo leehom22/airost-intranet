@@ -7,20 +7,25 @@ import useFetchUsers from "../../../hooks/useFetchUsers";
 import { useParams, useSearchParams } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useGetProjects from "../../Projects/hooks/useGetProjects";
+import { delay } from "framer-motion";
+import { isEqual } from "lodash";
 
 const Board = () => {
     const [cards, setCards] = useState([]);
     const {projectId} = useParams();
     const user = useAuth();
 
-    console.log(projectId)
+    //console.log(projectId)
     const projectTitle = useGetProjects()?.data
         ?.find(project => project.projectId == projectId).title;
-    console.log(projectTitle)
+    //console.log(projectTitle)
     const getProjectBoard = async () => {
-        return axios.get(`${process.env.REACT_APP_API_URL}/projects/tracking/${projectId}`)
+        return axios.get(`${process.env.REACT_APP_API_URL}/projects/tracking/${projectId}`) 
+
         .then(res => {
+            
             setCards(res.data.tasks)
+            
             return res.data
         })
         .catch(err => console.log(err))

@@ -21,3 +21,9 @@
 .background img{
   width: 50vw;
 }
+
+.custom-ant-modal .ant-modal-close{
+  right: 106px !important;
+  top: 16px !important;
+  background-color: red !important;
+}

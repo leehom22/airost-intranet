@@ -33,8 +33,7 @@ const Card = ({ handleDragStart, card, projectId }) => {
 
     useEffect(() => {
         const { title, description, date, priority, assignee } = sharedValue || {};
-            //update data to MongoDB
-    
+
         if (title) {
             setTitle(title);
             setDescription(description || card.description);
@@ -106,8 +105,28 @@ const Card = ({ handleDragStart, card, projectId }) => {
           updatedTasks.priority !== card.priority ||
           updatedTasks.assignee !== card.assignee
         ) {
-          console.log("Mutating with updated task:", updatedTasks);
-          projectBoardMutation.mutate();
+          //console.log("Mutating with updated task:", updatedTasks);
+
+          setTimeout(() => {
+            console.log("Mutating after 20s delay")
+            projectBoardMutation.mutate();
+            //window.addEventListener("beforeunload",)
+          }, 20000);
+
+          const handleBeforeUnload=(e)=>{
+            // e.preventDefault();
+            projectBoardMutation.mutate()
+            console.log("Changes saved before closing the tab")
+          }
+
+          console.log("Finishing saving data")
+
+          window.addEventListener("beforeunload",handleBeforeUnload)
+
+          return()=>{
+            window.removeEventListener("beforeunload",handleBeforeUnload)
+          };
+
         }
       }, [updatedTasks]); 
 
@@ -126,9 +145,7 @@ const Card = ({ handleDragStart, card, projectId }) => {
             <p className="text-sm text-neutral-100">{titleTask}</p>
             <div className="flex flex-row gap-1">
                 <p className={"text-xs w-min text-neutral-100 rounded-lg p-1 bg-neutral-900 text-neutral-400"}
-                onClick={()=>{
-                    console.log("Due date clicked",card.dueDate)
-                }} >
+                >
                 {moment(dueDate).format("DD/MM/YYYY")}
                 </p>
                 <p className={`text-xs w-min text-neutral-100 rounded-lg p-1 ${priorityConsts[priority]?.bgColor}`}>

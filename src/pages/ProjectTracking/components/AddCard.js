@@ -87,6 +87,10 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
                             onChange={(newValue) => {
                                 setDueDate(newValue); 
                             }} 
+                            inputClassName="text-xs w-full bg-neutral-800 text-white focus:outline-none pl-2.5"
+                            calendarContainerClassName="mt-2 z-50 shadow-lg rounded-lg border bg-white"
+                            containerClassName="relative"
+                            popoverDirection="down"
                         /> 
                     </div>
                     <select

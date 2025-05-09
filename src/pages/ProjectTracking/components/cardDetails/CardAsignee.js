@@ -15,6 +15,7 @@ export default function CardAsignee({value,id}){
             if(e.key==="Enter"){
                 dispatch(setAssignee({id,assignee:assigneeValue})) //Write to redux store 
                 setIsEditing(false);
+                e.preventDefault()
             }
             //console.log(details)
         }
