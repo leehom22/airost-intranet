@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAssignee } from "../../../../context/ReduxStore";
+import { setAssignee } from "./ReduxStore";
 import consts from "../../../../consts/consts";
 import useFetchUsers from "../../../../hooks/useFetchUsers";
 import { BsPersonCircle } from "react-icons/bs";

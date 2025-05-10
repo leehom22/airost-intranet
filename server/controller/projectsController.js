@@ -65,7 +65,7 @@ const createProjectBoard = async (req, res) => {
     }
 }
 
-const refreshProjectBoard = async (req, res) => {
+const refreshProjectBoard = async (req, res) => {//from client
 
     try{
         const updatedProjectBoard = await ProjectBoard.findOneAndUpdate({projectId: req.body.projectId},{$set:{tasks: req.body.tasks}})

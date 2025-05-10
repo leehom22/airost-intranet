@@ -108,9 +108,25 @@ const Card = ({ handleDragStart, card, projectId }) => {
           //console.log("Mutating with updated task:", updatedTasks);
 
           setTimeout(() => {
-            //console.log("Mutating after 20s delay")
+            console.log("Mutating after 20s delay")
             projectBoardMutation.mutate();
+            //window.addEventListener("beforeunload",)
           }, 20000);
+
+          const handleBeforeUnload=(e)=>{
+            // e.preventDefault();
+            projectBoardMutation.mutate()
+            console.log("Changes saved before closing the tab")
+          }
+
+          console.log("Finishing saving data")
+
+          window.addEventListener("beforeunload",handleBeforeUnload)
+
+          return()=>{
+            window.removeEventListener("beforeunload",handleBeforeUnload)
+          };
+
         }
       }, [updatedTasks]); 
 
