@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setDescription, setTitle } from "./ReduxStore";
+import { setDescription } from "../../../../context/ReduxStore";
 
 //Description
 export default function CardDescription({value,id}){

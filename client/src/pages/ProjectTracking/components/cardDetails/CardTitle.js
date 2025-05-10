@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setValue,setTitle } from "./ReduxStore";
+import { setTitle } from "../../../../context/ReduxStore";
 
 
 export default function CardTitle({value,id}){
