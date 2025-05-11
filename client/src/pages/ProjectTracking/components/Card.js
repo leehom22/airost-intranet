@@ -6,7 +6,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import moment from "moment/moment";
 import consts from "../../../consts/consts";
 import { useSelector } from "react-redux";
-import { setDate } from "./cardDetails/ReduxStore";
+import { setDate } from "./store/ReduxStore";
 import { set } from "react-hook-form";
 import usePBMUpdate from "../hooks/usePBMUpdate";
 
