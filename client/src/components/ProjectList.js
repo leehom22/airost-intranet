@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-const ProjectList = ({ projects }) => {
+const ProjectList = ({ projects, onDeleteProject }) => {
+    const user = useAuth();
+    const isAdmin = user && user.position && user.position.includes("admin");
+
+    const handleDelete = (e, projectId) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+            onDeleteProject(projectId);
+        }
+    };
+
     return ( 
         <div className="project-list w-10/12">
         {projects.map((project) => (
@@ -14,6 +26,14 @@ const ProjectList = ({ projects }) => {
               <p>{ project.lead ? `Lead by ${project.lead}` : '' } { project.category ? `| ${project.category}`: '' }</p>
             )}
             </Link>
+            {isAdmin && (
+                <button 
+                    className="btn btn-error btn-sm mt-2" 
+                    onClick={(e) => handleDelete(e, project.projectId)}
+                >
+                    Delete Project
+                </button>
+            )}
           </div>
         ))}
       </div>

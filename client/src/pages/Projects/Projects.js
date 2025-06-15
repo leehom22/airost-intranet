@@ -3,13 +3,14 @@ import { useState } from 'react';
 import './Projects.css';
 import ProjectList from '../../components/ProjectList';
 import { useForm } from "react-hook-form"
-import { useMutation} from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import useFetchUsers from "../../hooks/useFetchUsers";
 import useGetProjects from './hooks/useGetProjects';
 import axios from 'axios'
 
 function Projects() {
   const projects = useGetProjects();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -27,17 +28,39 @@ function Projects() {
           lead: project.lead,
       })
   }
+
+  const deleteProject = async (projectId) => {
+      return axios.delete(`${process.env.REACT_APP_API_URL}/projects/${projectId}`)
+  }
+
   const createProjectMutation = useMutation({
         mutationFn: createProject,
         onSuccess: (data) => {
           console.log(data)
-
+          queryClient.invalidateQueries(['projects']);
         }
     })
+
+  const deleteProjectMutation = useMutation({
+        mutationFn: deleteProject,
+        onSuccess: (data) => {
+          console.log('Project deleted successfully:', data)
+          queryClient.invalidateQueries(['projects']);
+        },
+        onError: (error) => {
+          console.error('Error deleting project:', error)
+          alert('Failed to delete project. Please try again.');
+        }
+    })
+
   const onSubmit = (data) => {
     console.log(data)
     createProjectMutation.mutate(data)
     reset();
+  }
+
+  const handleDeleteProject = (projectId) => {
+    deleteProjectMutation.mutate(projectId);
   }
 
   return (
@@ -45,14 +68,13 @@ function Projects() {
       <div className='flex flex-row justify-between items-center w-10/12'>
         <h1 className='project-title'>Projects</h1>
         <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_2').showModal()}>Add New Project</button>
-      </div>
-      {projects.isLoading 
+      </div>      {projects.isLoading 
         ? <div className="flex flex-col gap-2">
             <div className="skeleton h-20"></div>
             <div className="skeleton h-20"></div>
             <div className="skeleton h-20"></div>
           </div>
-        : <ProjectList projects={ projects.data }></ProjectList>
+        : <ProjectList projects={ projects.data } onDeleteProject={handleDeleteProject}></ProjectList>
       }
 
         <dialog id="my_modal_2" className="modal">
