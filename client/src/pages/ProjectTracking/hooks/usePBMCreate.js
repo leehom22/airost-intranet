@@ -8,7 +8,7 @@ const usePBMCreate = ({projectId, cards}) => {
         try {
           console.log("Sending project board data:", { projectId, cards }," to ",process.env.REACT_APP_API_URL);
         //`${process.env.REACT_APP_API_URL}/projects/tracking`
-          const response = await axios.post('http://localhost:4000/projects/tracking', {
+          const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects/tracking`, {
             projectId:projectId,
             tasks: cards,
           },{

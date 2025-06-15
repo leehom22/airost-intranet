@@ -6,7 +6,7 @@ const usePBMRefresh = ({projectId, cards}) => {
     const updateProjectBoard = async () => {
     try{
         console.log("Sending pending update data to backend")
-        const response=await axios.put('http://localhost:4000/projects/tracking',{
+        const response=await axios.put(`${process.env.REACT_APP_API_URL}/projects/tracking`,{
             projectId:projectId,
             tasks: cards, //should be only a single task (not a whole array)
         },{

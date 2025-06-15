@@ -90,9 +90,35 @@ const updateProjectBoard = async (req, res) => {
 
     }catch{error => console.log(error.message)}
 }
+
+const deleteProject = async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        
+        // Delete the project
+        const deletedProject = await Project.findOneAndDelete({ projectId: projectId });
+        
+        if (!deletedProject) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+        
+        // Delete the corresponding project board
+        await ProjectBoard.findOneAndDelete({ projectId: projectId });
+        
+        res.status(200).json({ 
+            message: 'Project and project board deleted successfully',
+            deletedProject 
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: 'Error deleting project', error: error.message });
+    }
+}
+
 module.exports = {
     getProjects,
     createProject,
+    deleteProject,
     getProjectBoard,
     createProjectBoard,
     updateProjectBoard,
