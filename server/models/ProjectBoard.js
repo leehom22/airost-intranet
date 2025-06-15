@@ -14,6 +14,7 @@ const projectBoard = new mongoose.Schema({
                 description: String,
                 priority: String,
                 dueDate: Date,
+                task_id: String,
             })
         ]
 });

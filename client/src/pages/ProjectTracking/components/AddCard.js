@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { FiPlus} from "react-icons/fi";
 import { motion } from "framer-motion";
-import useProjectBoardMutation from "../hooks/useProjectBoardMutation";
+import usePBMUpdate from "../hooks/usePBMRefresh";
 import useFetchUsers from "../../../hooks/useFetchUsers";
 import Datepicker from "react-tailwindcss-datepicker"; 
 import { useForm } from "react-hook-form";
+import usePBMCreate from "../hooks/usePBMCreate";
+import {v4 as uuidv4} from 'uuid'
 
 const AddCard = ({ column, setCards, addNewCard, user }) => {
     const [adding, setAdding] = useState(false);
+    const[task_id,setTaskId]=useState(uuidv4())
     const [dueDate, setDueDate] = useState({
         startDate: null,
         endDate: null,
     });
     const users = useFetchUsers();
+    const createCard = usePBMCreate({projectId: user.projectId, cards: []});
     const {
         register,
         handleSubmit,
@@ -26,28 +30,35 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
             priority: "low",
         }
       })
-
-    const onSubmit = (data) => {
-        if (!data.title.trim().length) return;
-    
-        const newCard = {
-            column,
-            title: data.title.trim(),
-            assignee: data.assignee,
-            createdBy: user.email,
-            description: data.description,
-            priority: data.priority,
-            dueDate: dueDate.startDate ?? new Date(),
-        };
-        
-        setCards((pv) => [...pv, newCard]);
-        addNewCard()
-        setDueDate({
-            startDate: null,
-            endDate: null,
-        })
-        setAdding(false);
-        reset();
+      
+    const onSubmit = async (data) => {
+        try{
+            if (!data.title.trim().length) return;
+            
+            const newCard = {
+                column,
+                title: data.title.trim(),
+                assignee: data.assignee,
+                createdBy: user.email,
+                description: data.description,
+                priority: data.priority,
+                dueDate: dueDate.startDate ?? new Date(),
+                task_id: task_id,
+            };
+            
+            setCards((pv) => [...pv, newCard]);
+            addNewCard()
+            setDueDate({
+                startDate: null,
+                endDate: null,
+            })
+            console.log("New card added from AddCard.js: ", newCard.title);
+            setAdding(false);
+            reset();
+        }
+        catch(err){
+            console.error("Error adding card: ", err);
+        }
       }
     
     return (
@@ -71,12 +82,15 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
                 <div className="h-min col-span-3">    
                         <Datepicker 
                             asSingle={true} 
+                            useRange={false}
                             value={dueDate} 
                             onChange={(newValue) => {
                                 setDueDate(newValue); 
-
-                                console.log(dueDate)
                             }} 
+                            inputClassName="text-xs w-full bg-neutral-800 text-white focus:outline-none pl-2.5"
+                            calendarContainerClassName="mt-2 z-50 shadow-lg rounded-lg border bg-white"
+                            containerClassName="relative"
+                            popoverDirection="down"
                         /> 
                     </div>
                     <select
@@ -116,7 +130,10 @@ const AddCard = ({ column, setCards, addNewCard, user }) => {
         ) : (
             <motion.button
             layout
-            onClick={() => setAdding(true)}
+            onClick={() => {
+                setTaskId(uuidv4())
+                setAdding(true) 
+            }}
             className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
             >
             <span>Add card</span>
