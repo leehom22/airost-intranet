@@ -95,9 +95,7 @@ const Card = ({ handleDragStart, card, projectId }) => {
             dueDate: date || card.dueDate,
           }));
         }
-      }, [sharedValue]);
-
-      useEffect(() => {
+      }, [sharedValue]);      useEffect(() => {
         if (
           updatedTasks.title !== card.title ||
           updatedTasks.description !== card.description ||
@@ -105,30 +103,27 @@ const Card = ({ handleDragStart, card, projectId }) => {
           updatedTasks.priority !== card.priority ||
           updatedTasks.assignee !== card.assignee
         ) {
-          //console.log("Mutating with updated task:", updatedTasks);
+          console.log("Task modified, saving immediately:", updatedTasks);
+          
+          // Save immediately when task is modified
+          projectBoardMutation.mutate();
 
-          setTimeout(() => {
-            console.log("Mutating after 20s delay")
-            projectBoardMutation.mutate();
-            //window.addEventListener("beforeunload",)
-          }, 20000);
-
+          // Also save on page close as backup
           const handleBeforeUnload=(e)=>{
             // e.preventDefault();
             projectBoardMutation.mutate()
             console.log("Changes saved before closing the tab")
           }
 
-          console.log("Finishing saving data")
-
           window.addEventListener("beforeunload",handleBeforeUnload)
 
-          return()=>{
+          return () => {
+            // Clean up event listener
             window.removeEventListener("beforeunload",handleBeforeUnload)
           };
 
         }
-      }, [updatedTasks]); 
+      }, [updatedTasks]);
 
     return (
         <>
