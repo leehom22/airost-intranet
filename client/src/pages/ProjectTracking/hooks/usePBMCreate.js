@@ -1,16 +1,23 @@
 import axios from 'axios'
 import { useQueryClient, useMutation} from '@tanstack/react-query'
+import useAuth from '../../../hooks/useAuth'
 
 //update tasks in the project board in MongoDB
 const usePBMCreate = ({projectId, cards}) => {
     const queryClient = useQueryClient()
+    const user = useAuth() // Get current user
+    
     const updateProjectBoard = async () => {
         try {
           console.log("Sending project board data:", { projectId, cards }," to ",process.env.REACT_APP_API_URL);
+          console.log("Current user for creation:", user); // Debug log
         //`${process.env.REACT_APP_API_URL}/projects/tracking`
           const response = await axios.post(`${process.env.REACT_APP_API_URL}/projects/tracking`, {
-            projectId:projectId,
-            tasks: cards,
+            projectId:projectId,            tasks: cards.map(card => ({
+              ...card,
+              createdBy: card.createdBy || user?.email || user?.name || user?.username || 'Unknown User'
+            })),
+            createdBy: user?.email || user?.name || user?.username || 'Unknown User'
           },{
             headers:{
                 'Content-Type': 'application/json',
