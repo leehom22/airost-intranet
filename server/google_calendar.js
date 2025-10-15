@@ -3,6 +3,8 @@ require('dotenv').config();
 
 // Provide the required configuration
 const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
+// const decodedCredentials = Buffer.from(process.env.CREDENTIALS, 'base64').toString('utf8'); // for deploying to cloudRun only
+// const CREDENTIALS = JSON.parse(decodedCredentials);// for deploying to cloudRun only
 const calendarId = process.env.CALENDAR_ID;
 
 // Google calendar API settings

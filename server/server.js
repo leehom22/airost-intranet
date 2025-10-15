@@ -15,7 +15,7 @@ const projectRoutes = require('./routes/projectsRoutes');
 
 require('dotenv').config()
 
-
+const PORT = process.env.PORT || 4000
 // Connect to db
 const connectDatabase = async () => {
     try {
@@ -30,6 +30,7 @@ const connectDatabase = async () => {
   };
   
 connectDatabase();
+app.use(express.json())
 app.set("trust proxy", 1); 
 // app.use(cookieSession({
 //     name:"session",
@@ -63,8 +64,6 @@ app.use(cors({
 
 app.use("/auth", authRoutes)
 
-app.use(express.json())
-
 app.use((req,res,next)=>{
     console.log(req.path,req.method)
     next()
@@ -76,6 +75,6 @@ app.use('/admin', adminRoutes)
 app.use('/user', userRoutes)
 app.use('/projects',projectRoutes)
 app.use('/calendar', eventRoutes)
-app.listen("4000",()=>{
+app.listen(PORT, '0.0.0.0' , ()=>{
     console.log("connected to server")
 })
